@@ -1,0 +1,10 @@
+Django==2.2.4
+Pillow
+django-allauth
+django-crispy-forms
+django-countries
+django-tinymce4-lite
+stripe
+requests
+psycopg2-binary
+cryptography==3.4.8
