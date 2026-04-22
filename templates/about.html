@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .about-section {
+        padding: 60px 0;
+        background: #fff;
+    }
+    .about-header-text {
+        color: #bfa37e;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+    .about-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 36px;
+        font-weight: 900;
+        color: #111;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+    .about-subtitle {
+        font-size: 15px;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    .section-card {
+        padding: 30px;
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        border: 1px solid #f0f0f0;
+        height: 100%;
+    }
+    .section-icon {
+        width: 50px;
+        height: 50px;
+        background: #fdfaf7;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        color: #bfa37e;
+        font-size: 20px;
+    }
+
+    /* Founder Section (Smaller) */
+    .founder-section {
+        padding: 60px 0;
+        background: #fdfaf7;
+    }
+    .founder-card {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 30px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .founder-image {
+        width: 200px;
+        height: 250px;
+        border-radius: 20px;
+        object-fit: cover;
+    }
+    .founder-info h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 28px;
+        font-weight: 900;
+        margin-bottom: 5px;
+    }
+    .founder-tag {
+        color: #bfa37e;
+        font-weight: 600;
+        font-size: 12px;
+    }
+    .founder-quote {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #666;
+        font-style: italic;
+        padding-left: 20px;
+        border-left: 3px solid #bfa37e;
+        margin-top: 15px;
+    }
+
+    /* Store Image Section */
+    .store-image-box {
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        margin-bottom: 40px;
+    }
+    .store-image-box img {
+        width: 100%;
+        display: block;
+        transition: transform 0.5s;
+    }
+    .store-image-box:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Values Grid */
+    .value-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        margin-top: 40px;
+    }
+    .value-card {
+        padding: 20px 10px;
+        border-radius: 15px;
+        background: #fff;
+        border: 1px solid #eee;
+        text-align: center;
+    }
+    .value-card i {
+        font-size: 22px;
+        color: #bfa37e;
+        margin-bottom: 10px;
+    }
+    .value-card h6 {
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+        .value-grid { grid-template-columns: repeat(2, 1fr); }
+        .founder-card { flex-direction: column; text-align: center; padding: 20px; }
+        .founder-quote { border-left: none; border-top: 3px solid #bfa37e; padding: 15px 0 0 0; }
+    }
+</style>
+
+<!-- Top Story & Store Image -->
+<div class="about-section">
+    <div class="container">
+        <div class="row m-b-40">
+            <div class="col-md-7">
+                <span class="about-header-text">Our Story</span>
+                <h1 class="about-title">We Are More Than Just a Fashion Brand</h1>
+                <p class="about-subtitle">
+                    At TrendyCart, we believe that fashion and quality should be accessible to everyone. Our journey started with a simple idea: to provide a seamless, enjoyable, and trustworthy shopping experience.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <div class="store-image-box">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800" alt="Store Interior">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-card">
+                    <div class="section-icon"><i class="fa fa-laptop"></i></div>
+                    <h5 class="m-b-10" style="font-weight: 800;">About Website</h5>
+                    <p class="about-subtitle">
+                        TrendyCart offers a premium range of <b>Fashion, Electronics, and Lifestyle</b> products. We focus on creating an intuitive <b>User Experience</b> that makes shopping effortless and fun.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 p-t-20-md">
+                <div class="section-card" style="background: #fdfaf7;">
+                    <div class="section-icon"><i class="fa fa-rocket"></i></div>
+                    <h5 class="m-b-10" style="font-weight: 800; color: #bfa37e;">Vision & Goals</h5>
+                    <p class="about-subtitle" style="font-size: 14px;">
+                        • Continuous UI/UX Improvements<br>
+                        • Fast Delivery & 100% Quality Check<br>
+                        • Expansion to Mobile App & Global Reach
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Founder Section (Compacted) -->
+<div class="founder-section">
+    <div class="container">
+        <div class="founder-card">
+            <img src="{% static 'images/founder_final.png' %}" alt="Prajjawal Kumar" class="founder-image">
+            <div class="founder-info">
+                <span class="founder-tag">FOUNDER & OWNER</span>
+                <h2>Prajjawal Kumar</h2>
+                <div class="founder-quote">
+                    "Customer satisfaction is our foundation. We strive to make every experience meaningful and trustworthy."
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Values Section -->
+<div class="container p-t-60 p-b-60">
+    <div class="text-center m-b-30">
+        <span class="about-header-text">Core Values</span>
+        <h2 class="about-title" style="font-size: 30px;">What Defines Us</h2>
+    </div>
+    
+    <div class="value-grid">
+        <div class="value-card">
+            <i class="fa fa-shield-alt"></i>
+            <h6>Trust & Transparency</h6>
+        </div>
+        <div class="value-card">
+            <i class="fa fa-award"></i>
+            <h6>Quality First</h6>
+        </div>
+        <div class="value-card">
+            <i class="fa fa-smile-beam"></i>
+            <h6>Customer Happiness</h6>
+        </div>
+        <div class="value-card">
+            <i class="fa fa-bolt"></i>
+            <h6>Fast & Secure</h6>
+        </div>
+        <div class="value-card">
+            <i class="fa fa-lightbulb"></i>
+            <h6>Innovation</h6>
+        </div>
+    </div>
+</div>
+
+<div class="container p-b-60 text-center">
+    <div style="max-width: 600px; margin: 0 auto; background: #111; color: #fff; padding: 35px; border-radius: 20px;">
+        <i class="fa fa-heart" style="color: #ff4d4d; font-size: 24px; margin-bottom: 15px;"></i>
+        <h4 style="font-family: 'Playfair Display', serif; font-weight: 700;">Thank you for your support.</h4>
+        <p style="color: #aaa; font-size: 13px; margin-top: 10px;">Making everyday life better through quality.</p>
+    </div>
+</div>
+
+{% endblock %}

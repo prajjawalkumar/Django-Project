@@ -20,121 +20,328 @@
 	}
 </style>
 
-	<!-- Title Page -->
-	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(/media/{{ category_image }});">
-		<h2 class="l-text2 t-center">
+	<!-- Breadcrumb -->
+	<div class="bread-crumb bgwhite flex-w p-l-52 p-r-15 p-t-30 p-l-15-sm">
+		<a href="/" class="s-text16">
+			Home
+			<i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
+		</a>
+		{% if subcategories or category_title.parent %}
+            {% if category_title.parent %}
+                <a href="{{ category_title.parent.get_absolute_url }}" class="s-text16">
+                    {{ category_title.parent.title }}
+                    <i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
+                </a>
+            {% endif %}
+		{% endif %}
+		<span class="s-text17">
 			{{ category_title }}
-		</h2>
-		<p class="m-text13 t-center">
-			{{ category_description }}
-		</p>
+		</span>
+	</div>
+
+	<!-- Modern Category Hero Banner -->
+	<section class="category-hero" style="background-image: url(/media/{{ category_image }});">
+		<div class="category-hero-overlay">
+			<div class="container-fluid flex-col-c-m p-t-40 p-b-40">
+				<h2 class="category-hero-title">
+					{{ category_title }}
+				</h2>
+				<div class="category-hero-divider"></div>
+				<p class="category-hero-subtitle">
+					{{ category_description }}
+				</p>
+			</div>
+		</div>
 	</section>
+
+	<style>
+		.category-hero {
+			background-size: cover;
+			background-position: center center;
+			position: relative;
+			margin-top: 20px;
+			border-radius: 15px; /* Rounded corners for a modern solid look */
+			overflow: hidden;
+			min-height: 200px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-left: 15px;
+            margin-right: 15px;
+            transition: all 0.5s;
+		}
+		.category-hero-overlay {
+			background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.2));
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			padding: 40px;
+		}
+		.category-hero-title {
+			font-family: 'Playfair Display', serif;
+			font-size: 54px;
+			font-weight: 900;
+			color: #fff;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			margin-bottom: 15px;
+            animation: fadeInLeft 0.8s ease-out;
+		}
+		.category-hero-divider {
+			width: 60px;
+			height: 5px;
+			background: #2874f0;
+			margin-bottom: 20px;
+            border-radius: 2px;
+		}
+		.category-hero-subtitle {
+			font-family: 'Montserrat', sans-serif;
+			font-size: 16px;
+			color: rgba(255,255,255,0.95);
+			max-width: 500px;
+			line-height: 1.6;
+            animation: fadeInLeft 1s ease-out;
+		}
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        /* Subcategory Cards Animation Sync */
+        .subcategory-card {
+            animation: fadeInUp 0.5s ease-out both;
+        }
+        {% for i in "123456" %}
+        .subcategory-grid .subcategory-card:nth-child({{forloop.counter}}) {
+            animation-delay: {{ forloop.counter|add:"0.2" }}s;
+        }
+        {% endfor %}
+	</style>
 
 
 	<!-- Content page -->
-	<section class="bgwhite p-t-55 p-b-65">
-		<div class="container">
+	<section class="bgwhite p-t-20 p-b-65">
+		<div class="container-fluid" style="padding: 0 4%;">
 			<div class="row">
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
 					<div class="leftbar p-r-20 p-r-0-sm">
-						<!--  -->
-						<h4 class="m-text14 p-b-7">
-							Categories
-						</h4>
-
-						<ul class="p-b-54">
-							<li class="p-t-4">
-								<a href="/shop" class="s-text13 active1">
-									All
-								</a>
-							</li>
-
-							{% categories_li_a %}
-
-						</ul>
-
-						<!--  -->
-						<h4 class="m-text14 p-b-32">
-							Filters
-						</h4>
-
-						<div class="filter-price p-t-22 p-b-50 bo3">
-							<div class="m-text15 p-b-17">
-								Price
+						<!-- Our Services Section -->
+						<div class="p-t-30">
+							<h4 class="m-text14 p-b-20">
+								Our Promise
+							</h4>
+							<div class="s-text13 p-b-15" style="display: flex; align-items: center; gap: 10px;">
+								<i class="fa fa-truck" style="color: #2874f0; font-size: 18px; width: 25px;"></i>
+								<span>Fast Delivery</span>
 							</div>
-
-							<div class="wra-filter-bar">
-								<div id="filter-bar"></div>
+							<div class="s-text13 p-b-15" style="display: flex; align-items: center; gap: 10px;">
+								<i class="fa fa-refresh" style="color: #2874f0; font-size: 18px; width: 25px;"></i>
+								<span>7 Days Return</span>
 							</div>
-
-							<div class="flex-sb-m flex-w p-t-16">
-								<div class="w-size11">
-									<!-- Button -->
-									<button class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
-										Filter
-									</button>
-								</div>
-
-								<div class="s-text3 p-t-10 p-b-10">
-									Range: $<span id="value-lower">610</span> - $<span id="value-upper">980</span>
-								</div>
+							<div class="s-text13 p-b-15" style="display: flex; align-items: center; gap: 10px;">
+								<i class="fa fa-shield" style="color: #2874f0; font-size: 18px; width: 25px;"></i>
+								<span>Secure Payment</span>
+							</div>
+							<div class="s-text13 p-b-15" style="display: flex; align-items: center; gap: 10px;">
+								<i class="fa fa-certificate" style="color: #2874f0; font-size: 18px; width: 25px;"></i>
+								<span>Best Quality</span>
 							</div>
 						</div>
 
-						<div class="filter-color p-t-22 p-b-50 bo3">
-							<div class="m-text15 p-b-12">
-								Color
+						<!-- Secure Shopping Section -->
+						<div class="p-t-40">
+							<h4 class="m-text14 p-b-20">
+								Secure Shopping
+							</h4>
+							<div class="flex-w p-b-10" style="gap: 15px;">
+								<i class="fab fa-cc-visa" style="font-size: 30px; color: #1a1f71;"></i>
+								<i class="fab fa-cc-mastercard" style="font-size: 30px; color: #eb001b;"></i>
+								<i class="fab fa-cc-paypal" style="font-size: 30px; color: #003087;"></i>
+								<i class="fab fa-cc-stripe" style="font-size: 30px; color: #6772e5;"></i>
 							</div>
-
-							<ul class="flex-w">
-								<li class="m-r-10">
-									<input class="checkbox-color-filter" id="color-filter1" type="checkbox" name="color-filter1">
-									<label class="color-filter color-filter1" for="color-filter1"></label>
-								</li>
-
-								<li class="m-r-10">
-									<input class="checkbox-color-filter" id="color-filter2" type="checkbox" name="color-filter2">
-									<label class="color-filter color-filter2" for="color-filter2"></label>
-								</li>
-
-								<li class="m-r-10">
-									<input class="checkbox-color-filter" id="color-filter3" type="checkbox" name="color-filter3">
-									<label class="color-filter color-filter3" for="color-filter3"></label>
-								</li>
-
-								<li class="m-r-10">
-									<input class="checkbox-color-filter" id="color-filter4" type="checkbox" name="color-filter4">
-									<label class="color-filter color-filter4" for="color-filter4"></label>
-								</li>
-
-								<li class="m-r-10">
-									<input class="checkbox-color-filter" id="color-filter5" type="checkbox" name="color-filter5">
-									<label class="color-filter color-filter5" for="color-filter5"></label>
-								</li>
-
-								<li class="m-r-10">
-									<input class="checkbox-color-filter" id="color-filter6" type="checkbox" name="color-filter6">
-									<label class="color-filter color-filter6" for="color-filter6"></label>
-								</li>
-
-								<li class="m-r-10">
-									<input class="checkbox-color-filter" id="color-filter7" type="checkbox" name="color-filter7">
-									<label class="color-filter color-filter7" for="color-filter7"></label>
-								</li>
-							</ul>
 						</div>
 
-						<div class="search-product pos-relative bo4 of-hidden">
-							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" placeholder="Search Products...">
-
-							<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
-							</button>
-						</div>
+                        <!-- Price Range Slider -->
+                        <div class="p-t-40">
+                            <h4 class="m-text14 p-b-25">
+                                Price Range
+                            </h4>
+                            <div id="price-range-slider" style="margin-bottom: 20px;"></div>
+                            <div class="flex-sb-m flex-w">
+                                <div class="s-text3">
+                                    Range: ₹<span id="price-min-val">{{ current_min }}</span> - ₹<span id="price-max-val">{{ current_max }}</span>
+                                </div>
+                                <button id="filter-price-btn" class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4" style="margin-top: 15px;">
+                                    Apply
+                                </button>
+                            </div>
+                        </div>
 					</div>
 				</div>
 
 				<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+                    <div class="flex-sb-m flex-w p-b-35">
+                        <div class="flex-w">
+                            <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10" >
+                                <select class="selection-2" name="sorting" id="sorting-select">
+                                    <option value="default" {% if current_sort == 'default' %}selected{% endif %}>Default Sorting</option>
+                                    <option value="popularity" {% if current_sort == 'popularity' %}selected{% endif %}>Popularity</option>
+                                    <option value="price_low" {% if current_sort == 'price_low' %}selected{% endif %}>Price: low to high</option>
+                                    <option value="price_high" {% if current_sort == 'price_high' %}selected{% endif %}>Price: high to low</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <span class="s-text8 p-t-5 p-b-5">
+                            Showing {{ object_list|length }} results
+                        </span>
+                    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Price Slider
+            var slider = document.getElementById('price-range-slider');
+            noUiSlider.create(slider, {
+                start: [{{ current_min }}, {{ current_max }}],
+                connect: true,
+                range: {
+                    'min': 290,
+                    'max': 4740
+                },
+                step: 10
+            });
+
+            var minVal = document.getElementById('price-min-val');
+            var maxVal = document.getElementById('price-max-val');
+
+            slider.noUiSlider.on('update', function (values, handle) {
+                minVal.innerHTML = Math.round(values[0]);
+                maxVal.innerHTML = Math.round(values[1]);
+            });
+
+            document.getElementById('filter-price-btn').addEventListener('click', function() {
+                var values = slider.noUiSlider.get();
+                var url = new URL(window.location.href);
+                url.searchParams.set('min_price', Math.round(values[0]));
+                url.searchParams.set('max_price', Math.round(values[1]));
+                window.location.href = url.toString();
+            });
+
+            // Sorting
+            document.getElementById('sorting-select').addEventListener('change', function() {
+                var url = new URL(window.location.href);
+                url.searchParams.set('sort', this.value);
+                window.location.href = url.toString();
+            });
+        });
+    </script>
+
+				<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+					<!-- Shop by Subcategories -->
+					{% if subcategories %}
+					<style>
+						.subcategory-section {
+							background: #fff;
+							padding: 0 0 40px 0;
+							margin-top: -10px;
+							margin-bottom: 40px;
+							border-bottom: 2px solid #f8f9fa;
+						}
+						.subcategory-title {
+							font-weight: 800;
+							font-size: 28px;
+							margin-bottom: 35px;
+							color: #1a1a1a;
+							letter-spacing: -0.5px;
+						}
+						.subcategory-grid {
+							display: grid;
+							grid-template-columns: repeat(3, 1fr); /* Exactly 3 cards per line */
+							gap: 30px;
+						}
+						.subcategory-card {
+							text-align: center;
+							padding: 35px 25px;
+							border: 1px solid #f0f0f0;
+							border-radius: 24px;
+							transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+							text-decoration: none;
+							color: #333;
+							background: #fff;
+							position: relative;
+							overflow: hidden;
+							box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+						}
+						.subcategory-card::before {
+							content: '';
+							position: absolute;
+							top: 0; left: 0; width: 100%; height: 100%;
+							background: linear-gradient(45deg, transparent, rgba(40, 116, 240, 0.05), transparent);
+							transform: translateX(-100%);
+							transition: transform 0.6s;
+						}
+						.subcategory-card:hover {
+							transform: translateY(-15px) scale(1.02);
+							box-shadow: 0 20px 40px rgba(40, 116, 240, 0.12); /* Blue glow */
+							border-color: #2874f0;
+						}
+						.subcategory-card:hover::before {
+							transform: translateX(100%);
+						}
+						.subcategory-card img {
+							width: 100%;
+							height: 220px; /* Much larger images */
+							object-fit: cover;
+							border-radius: 16px;
+							margin-bottom: 20px;
+							transition: all 0.5s;
+						}
+						.subcategory-card:hover img {
+							transform: scale(1.08);
+						}
+						.subcategory-card h4 {
+							font-size: 20px;
+							font-weight: 800;
+							margin-bottom: 15px;
+							color: #111;
+						}
+						.subcategory-card span {
+							font-size: 15px;
+							color: #fff;
+							font-weight: 700;
+							display: inline-block;
+							padding: 10px 25px;
+							border-radius: 30px;
+							background: #2874f0;
+							box-shadow: 0 4px 10px rgba(40, 116, 240, 0.3);
+							transition: all 0.3s;
+						}
+						.subcategory-card:hover span {
+							background: #111;
+							box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+						}
+					</style>
+					<div class="subcategory-section">
+						<h3 class="subcategory-title">Explore {{ category_title }}</h3>
+						<div class="subcategory-grid">
+							{% for sub in subcategories %}
+							<a href="{{ sub.get_absolute_url }}" class="subcategory-card">
+								{% if sub.image %}
+									<img src="{{ sub.image.url }}" alt="{{ sub.title }}">
+								{% else %}
+									<img src="{% static 'images/icons/logo.png' %}" alt="No Image">
+								{% endif %}
+								<h4>{{ sub.title }}</h4>
+								<span>Shop Now</span>
+							</a>
+							{% endfor %}
+						</div>
+					</div>
+					{% endif %}
+
 					<!--  -->
 					<div class="flex-sb-m flex-w p-b-35">
 						<div class="flex-w">
@@ -151,11 +358,11 @@
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
 								<select class="selection-2" name="sorting">
 									<option>Price</option>
-									<option>$0.00 - $50.00</option>
-									<option>$50.00 - $100.00</option>
-									<option>$100.00 - $150.00</option>
-									<option>$150.00 - $200.00</option>
-									<option>$200.00+</option>
+									<option>₹0.00 - ₹50.00</option>
+									<option>₹50.00 - ₹100.00</option>
+									<option>₹100.00 - ₹150.00</option>
+									<option>₹150.00 - ₹200.00</option>
+									<option>₹200.00+</option>
 
 								</select>
 							</div>
@@ -201,7 +408,7 @@
 									</a>
 
 									<span class="block2-price m-text6 p-r-5">
-										${{item.price}}
+										₹{{item.price}}
 									</span>
 								</div>
 							</div>

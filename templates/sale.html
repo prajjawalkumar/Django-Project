@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+{% load static %}
+{% load category_template_tags %}
+
+{% block content %}
+<style>
+    .sale-page {
+        padding: 40px 0 80px 0;
+        background: #fdfdfd;
+    }
+    .breadcrumb-custom {
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 20px;
+    }
+    .breadcrumb-custom a { color: #888; }
+    .breadcrumb-custom span { color: #333; margin: 0 5px; }
+
+    .sale-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: #222;
+        margin-bottom: 5px;
+    }
+    .sale-subtitle {
+        font-size: 15px;
+        color: #666;
+        margin-bottom: 40px;
+    }
+
+    .sale-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .sale-card {
+        position: relative;
+        height: 180px;
+        border-radius: 12px;
+        padding: 25px;
+        color: #fff;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+    .sale-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .sale-card h3 {
+        font-size: 22px;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        line-height: 1.1;
+    }
+    .sale-card p {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        opacity: 0.9;
+    }
+    .sale-btn {
+        width: fit-content;
+        padding: 8px 18px;
+        background: #fff;
+        color: #333;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        border-radius: 4px;
+        border: none;
+    }
+
+    /* Card Themes */
+    .card-mega {
+        background: linear-gradient(135deg, #a80000 0%, #d40000 100%);
+    }
+    .card-flash {
+        background: linear-gradient(135deg, #ffb400 0%, #ffcc00 100%);
+        color: #333;
+    }
+    .card-flash .sale-btn { background: #333; color: #fff; }
+
+    .card-clearance {
+        background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+    }
+    .card-clearance .sale-btn { background: #e60000; color: #fff; }
+
+    .card-bogo {
+        background: linear-gradient(135deg, #4b0082 0%, #6a5acd 100%);
+    }
+
+    /* Icons and Patterns */
+    .sale-icon {
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+        font-size: 80px;
+        opacity: 0.2;
+        transform: rotate(-15deg);
+    }
+
+    @media (max-width: 1199px) {
+        .sale-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 576px) {
+        .sale-grid { grid-template-columns: 1fr; }
+    }
+</style>
+
+<div class="sale-page">
+    <div class="container">
+        <!-- Header -->
+        <h1 class="sale-title">SALE</h1>
+        <p class="sale-subtitle">Best deals. Limited time only!</p>
+
+        <!-- Banner Grid -->
+        <div class="sale-grid m-b-40">
+            <!-- Mega Discount -->
+            <div class="sale-card card-mega">
+                <h3>Mega<br>Discount</h3>
+                <p>UPTO <span style="font-size: 18px; color: #ffeb3b;">70%</span> OFF</p>
+                <button class="sale-btn">Shop Now</button>
+                <i class="fa fa-shopping-bag sale-icon"></i>
+            </div>
+
+            <!-- Flash Sale -->
+            <div class="sale-card card-flash">
+                <h3>Flash Sale <i class="fa fa-bolt" style="font-size: 18px;"></i></h3>
+                <p>LIMITED TIME OFFERS</p>
+                <button class="sale-btn">Shop Now</button>
+                <i class="fa fa-clock sale-icon"></i>
+            </div>
+
+            <!-- Clearance Sale -->
+            <div class="sale-card card-clearance">
+                <h3>Clearance<br>Sale</h3>
+                <p>LAST CHANCE TO BUY!</p>
+                <button class="sale-btn">Shop Now</button>
+                <i class="fa fa-shopping-cart sale-icon"></i>
+            </div>
+
+            <!-- Buy 1 Get 1 Free -->
+            <div class="sale-card card-bogo">
+                <h3>Buy 1<br>Get 1 Free</h3>
+                <p>ON SELECTED ITEMS</p>
+                <button class="sale-btn">Shop Now</button>
+                <i class="fa fa-box-open sale-icon"></i>
+            </div>
+        </div>
+
+        <!-- Shop by Category Section -->
+        <div class="m-b-50">
+            <div class="flex-sb-m p-b-20">
+                <h4 class="m-text14">Shop by Category</h4>
+                <a href="#" class="s-text13 hov6">VIEW ALL</a>
+            </div>
+
+            <div class="sale-category-container">
+                {% sale_categories as sale_cats %}
+                {% for cat in sale_cats %}
+                <a href="/category/{{ cat.slug }}" class="sale-category-item">
+                    <div class="cat-icon-circle">
+                        {% if 'deals' in cat.slug %}
+                            <span style="font-size: 35px; color: #d0011b; font-weight: 900;">%</span>
+                        {% elif 'mens' in cat.slug %}
+                            <span style="font-size: 35px;">👕</span>
+                        {% elif 'womens' in cat.slug %}
+                            <span style="font-size: 35px;">👗</span>
+                        {% elif 'kids' in cat.slug %}
+                            <span style="font-size: 35px;">🧸</span>
+                        {% elif 'footwear' in cat.slug %}
+                            <span style="font-size: 35px;">👟</span>
+                        {% elif 'accesories' in cat.slug %}
+                            <span style="font-size: 35px;">👜</span>
+                        {% elif 'winter' in cat.slug %}
+                            <span style="font-size: 35px;">❄️</span>
+                        {% elif 'summer' in cat.slug %}
+                            <span style="font-size: 35px;">☀️</span>
+                        {% elif 'combo' in cat.slug %}
+                            <span style="font-size: 35px;">🎁</span>
+                        {% elif 'best' in cat.slug %}
+                            <span style="font-size: 35px; color: #333;">⭐</span>
+                        {% elif 'under' in cat.slug %}
+                            <span style="font-size: 35px;">🏷️</span>
+                        {% else %}
+                            <span style="font-size: 35px;">🛍️</span>
+                        {% endif %}
+                    </div>
+                    <span class="cat-name">{{ cat.title }}</span>
+                    <span class="cat-offer">
+                        {% if 'deals' in cat.slug %}Up to 70% Off
+                        {% elif 'sale' in cat.slug %}Min. 40% Off
+                        {% elif 'combo' in cat.slug %}Best Combos
+                        {% elif 'best' in cat.slug %}On Discount
+                        {% elif 'under' in cat.slug %}Deals
+                        {% else %}Special Offer{% endif %}
+                    </span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <style>
+            .sale-category-container {
+                display: flex;
+                overflow-x: auto;
+                gap: 20px;
+                padding-bottom: 15px;
+                scrollbar-width: thin;
+            }
+            .sale-category-container::-webkit-scrollbar { height: 6px; }
+            .sale-category-container::-webkit-scrollbar-thumb { background: #eee; border-radius: 10px; }
+
+            .sale-category-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-width: 100px;
+                text-align: center;
+            }
+            .cat-icon-circle {
+                width: 70px;
+                height: 70px;
+                background: #fdf2f2;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 10px;
+                color: #d0011b;
+                font-size: 24px;
+                transition: all 0.3s;
+                overflow: hidden; /* Ensure image doesn't break circle */
+            }
+            .cat-icon-circle img {
+                width: 40px;
+                height: 40px;
+                object-fit: contain;
+                transition: all 0.3s;
+            }
+            .sale-category-item:hover .cat-icon-circle {
+                transform: scale(1.1);
+                background: #d0011b;
+                color: #fff;
+            }
+            .cat-name {
+                font-size: 13px;
+                font-weight: 700;
+                color: #333;
+                margin-bottom: 2px;
+                white-space: nowrap;
+            }
+            .cat-offer {
+                font-size: 10px;
+                color: #888;
+                white-space: nowrap;
+            }
+        </style>
+
+        <!-- Products Heading -->
+        <div class="flex-sb-m flex-w p-b-35">
+            <h2 class="m-text5">On Sale Products</h2>
+            <div class="s-text8">
+                Showing {{ object_list|length }} results
+            </div>
+        </div>
+
+        <!-- Sale Products Grid -->
+        <div class="row">
+            {% for item in object_list %}
+            <div class="col-sm-12 col-md-6 col-lg-3 p-b-50">
+                <div class="block2">
+                    <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelsale">
+                        <img src="{{ item.image.url }}" alt="IMG-PRODUCT">
+
+                        <div class="block2-overlay trans-0-4">
+                            <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+                                <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+                                <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+                            </a>
+
+                            <div class="block2-btn-addcart w-size1 trans-0-4">
+                                <a href="{{ item.get_add_to_cart_url }}" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+                                    Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="block2-txt p-t-20">
+                        <a href="{{ item.get_absolute_url }}" class="block2-name dis-block s-text3 p-b-5">
+                            {{ item.title }}
+                        </a>
+
+                        <span class="block2-oldprice m-text7 p-r-5">
+                            ₹{{ item.price }}
+                        </span>
+
+                        <span class="block2-newprice m-text8 p-r-5">
+                            ₹{{ item.discount_price }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center p-t-50">
+                <p class="s-text8">No products on sale right now. Check back later!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

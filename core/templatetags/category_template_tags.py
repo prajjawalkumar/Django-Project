@@ -6,9 +6,19 @@ from core.models import Category
 register = template.Library()
 
 
+from core.models import Category
+
+register = template.Library()
+
+SALE_CATEGORY_SLUGS = [
+    'top-deals', 'mens-sale', 'womens-sale', 'footwear-sale', 
+    'accesories-sale', 'summer-sale', 'combo-offers', 
+    'best-sellers', 'under-499', 'under-699', 'winter-sale'
+]
+
 @register.simple_tag
 def categories():
-    items = Category.objects.filter(is_active=True).order_by('title')
+    items = Category.objects.filter(is_active=True, parent=None).exclude(slug__in=SALE_CATEGORY_SLUGS).order_by('title')
     items_li = ""
     for i in items:
         items_li += """<li><a href="/category/{}">{}</a></li>""".format(i.slug, i.title)
@@ -16,30 +26,28 @@ def categories():
 
 @register.simple_tag
 def categories_mobile():
-    items = Category.objects.filter(is_active=True).order_by('title')
+    items = Category.objects.filter(is_active=True, parent=None).exclude(slug__in=SALE_CATEGORY_SLUGS).order_by('title')
     items_li = ""
     for i in items:
         items_li += """<li class="item-menu-mobile"><a href="/category/{}">{}</a></li>""".format(i.slug, i.title)
     return mark_safe(items_li)
 
-
 @register.simple_tag
 def categories_li_a():
-    items = Category.objects.filter(is_active=True).order_by('title')
+    items = Category.objects.filter(is_active=True, parent=None).exclude(slug__in=SALE_CATEGORY_SLUGS).order_by('title')
     items_li_a = ""
     for i in items:
-        items_li_a += """<li class="p-t-4"><a href="/category/{}" class="s-text13">{}</a></li>""".format(i.slug,
-                                                                                                         i.title)
+        items_li_a += """<li class="p-t-4"><a href="/category/{}" class="s-text13">{}</a></li>""".format(i.slug, i.title)
     return mark_safe(items_li_a)
 
+@register.simple_tag
+def sale_categories():
+    return Category.objects.filter(slug__in=SALE_CATEGORY_SLUGS).order_by('id')
 
 @register.simple_tag
 def categories_div():
-    """
-    section banner
-    :return:
-    """
-    items = Category.objects.filter(is_active=True).order_by('title')
+    items = Category.objects.filter(is_active=True, parent=None).exclude(slug__in=SALE_CATEGORY_SLUGS).order_by('title')
+    # ... (rest of the code remains the same but using the filtered items)
     items_div = ""
     item_div_list = ""
     for i, j in enumerate(items):

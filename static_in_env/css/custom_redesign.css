@@ -1,0 +1,184 @@
+/* Custom Redesign Styles for TrendyCart */
+
+:root {
+    --primary-blue: #0056b3; /* Royal Blue */
+    --dark-blue: #0a192f; /* Deep Navy */
+    --light-blue: #f4f7f6;
+    --white: #ffffff;
+    --text-grey: #718096;
+    --text-black: #1a202c;
+    --border-light: #e2e8f0;
+    --shadow-sm: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f1f3f6;
+    color: var(--text-black);
+}
+
+/* Header Styles */
+.redesign-header {
+    background: var(--white);
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Tier 1: Top Bar */
+.top-tier {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    font-size: 12px;
+    padding: 8px 0;
+}
+
+.top-tier .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Tier 2: Main Header */
+.main-tier {
+    background-color: var(--primary-blue);
+    padding: 12px 0;
+    color: var(--white);
+}
+
+.main-tier .container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.header-search {
+    flex-grow: 1;
+    display: flex;
+    max-width: 600px;
+    background: var(--white);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.header-search input {
+    border: none;
+    padding: 10px 16px;
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+    color: var(--text-black);
+}
+
+.header-search button {
+    background: var(--white);
+    border: none;
+    padding: 0 15px;
+    color: var(--primary-blue);
+    cursor: pointer;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.header-icon-item i {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.cart-count-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: #ff6161;
+    color: white;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+/* Tier 3: Category Nav */
+.category-tier {
+    background: var(--white);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--shadow-md);
+}
+
+.category-tier .container {
+    display: flex;
+    align-items: center;
+}
+
+.all-categories-btn {
+    padding: 15px 20px;
+    background: transparent;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.category-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.category-menu li a {
+    padding: 15px 18px;
+    text-decoration: none;
+    color: var(--text-black);
+    font-size: 14px;
+    font-weight: 500;
+    display: block;
+}
+
+.category-menu li a:hover {
+    color: var(--primary-blue);
+}
+
+/* Waving Hand Animation */
+@keyframes wave {
+    0% { transform: rotate( 0.0deg) }
+    10% { transform: rotate(14.0deg) }
+    20% { transform: rotate(-8.0deg) }
+    30% { transform: rotate(14.0deg) }
+    40% { transform: rotate(-4.0deg) }
+    50% { transform: rotate(10.0deg) }
+    60% { transform: rotate( 0.0deg) }
+    100% { transform: rotate( 0.0deg) }
+}
+.wave-animation {
+    display: inline-block;
+    animation: wave 2.5s infinite;
+    transform-origin: 70% 70%;
+}
+
+/* Greeting Styles */
+.user-greeting {
+    margin-right: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

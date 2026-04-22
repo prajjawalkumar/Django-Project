@@ -10,6 +10,48 @@
 	.topbar a:hover{
 		color: black;
 	}
+    /* Main Menu Styles */
+    .main_menu > li > a {
+        color: #000 !important;
+        transition: color 0.3s;
+    }
+    .main_menu > li.active-menu > a {
+        color: #ff0000 !important;
+    }
+    /* Mobile Menu Styles */
+    .item-menu-mobile > a {
+        color: #000 !important;
+    }
+    .item-menu-mobile.active-menu > a {
+        color: #ff0000 !important;
+    }
+    /* Override sale-noti if needed */
+    li.sale-noti > a {
+        color: #000 !important;
+    }
+    li.active-menu.sale-noti > a {
+        color: #ff0000 !important;
+    }
+	@keyframes wave {
+		0% { transform: rotate( 0.0deg) }
+		10% { transform: rotate(14.0deg) }
+		20% { transform: rotate(-8.0deg) }
+		30% { transform: rotate(14.0deg) }
+		40% { transform: rotate(-4.0deg) }
+		50% { transform: rotate(10.0deg) }
+		60% { transform: rotate( 0.0deg) }
+		100% { transform: rotate( 0.0deg) }
+	}
+	.wave-animation {
+		display: inline-block;
+		animation: wave 2.5s infinite;
+		transform-origin: 70% 70%;
+	}
+    .topbar-email {
+        color: #333 !important;
+        font-weight: 600;
+        font-size: 14px;
+    }
 </style>
 <!-- Header -->
 <header class="header1">
@@ -25,45 +67,65 @@
 				</div>
 
 				<span class="topbar-child1">
-					Free shipping for standard order over $100
+					{% if '/about/' not in request.path %}
+					Free shipping for standard order over ₹100
+					{% endif %}
 				</span>
 
 				<div class="topbar-child2">
 					<span class="topbar-email">
-						<a href="https://github.com/zinmyoswe">
-						overmidnight12@gmail.com
-					    </a>
+						{% if request.user.is_authenticated %}
+							Hello, {{ request.user.username|title }} <span class="wave-animation">👋🏻</span>
+						{% else %}
+							Hello, Guest <span class="wave-animation">👋🏻</span>
+						{% endif %}
 					</span>
-
-					<div class="topbar-language rs1-select2">
-						<select class="selection-1" name="time">
-							<option>USD</option>
-							<option>EUR</option>
-						</select>
-					</div>
 				</div>
 			</div>
 
 			<div class="wrap_header">
 				<!-- Logo -->
 				<a href="/" class="logo">
-					<p style="color: black; "><b style="font-size: 22px;">D</b>JANGO SHOP</p>
+					<p style="color: black; "><b style="font-size: 22px;">T</b>rendyCart</p>
 				</a>
+
+				<!-- Search bar -->
+				<div class="wrap_search m-l-30">
+					<form action="{% url 'core:search' %}" method="GET" style="display: flex; border: 1px solid #e6e6e6; border-radius: 20px; overflow: hidden; width: 300px;">
+						<input type="text" name="q" placeholder="Search products..." style="padding: 8px 15px; border: none; outline: none; flex-grow: 1; font-size: 13px;">
+						<button type="submit" style="padding: 0 15px; background: #f5f5f5; border: none; border-left: 1px solid #e6e6e6; cursor: pointer;">
+							<i class="fa fa-search" aria-hidden="true" style="color: #666;"></i>
+						</button>
+					</form>
+				</div>
 
 				<!-- Menu -->
 				<div class="wrap_menu">
 					<nav class="menu">
 						<ul class="main_menu">
-							<li>
+							<li class="{% if request.path == '/' %}active-menu{% endif %}">
 								<a href="/">Home</a>
-
 							</li>
 
-							<li>
+							<li class="{% if '/shop/' in request.path %}active-menu{% endif %}">
 								<a href="/shop/">Shop</a>
 							</li>
 
-							{% categories %}
+							<li class="sale-noti {% if '/sale/' in request.path %}active-menu{% endif %}">
+								<a href="{% url 'core:sale' %}">Sale</a>
+							</li>
+
+							<li class="{% if '/mens-wear/' in request.path %}active-menu{% endif %}">
+								<a href="/category/mens-wear">Mens Wear</a>
+							</li>
+
+							<li class="{% if '/womens-wear/' in request.path %}active-menu{% endif %}">
+								<a href="/category/womens-wear">Womens Wear</a>
+							</li>
+
+							<li class="{% if '/about/' in request.path %}active-menu{% endif %}">
+								<a href="{% url 'core:about' %}">About</a>
+							</li>
 
 							{% if request.user.is_authenticated %}
 							<li>
@@ -98,8 +160,8 @@
 		<!-- Header Mobile -->
 		<div class="wrap_header_mobile">
 			<!-- Logo moblie -->
-			<a href="index.html" class="logo-mobile">
-				<img src="{% static 'images/icons/logo.png' %}" alt="IMG-LOGO">
+			<a href="/" class="logo-mobile">
+				<p style="color: black; "><b style="font-size: 22px;">T</b>rendyCart</p>
 			</a>
 
 			<!-- Button show menu -->
@@ -205,7 +267,9 @@
 				<ul class="main-menu">
 					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
 						<span class="topbar-child1">
-							Free shipping for standard order over $100
+							{% if '/about/' not in request.path %}
+							Free shipping for standard order over ₹100
+							{% endif %}
 						</span>
 					</li>
 
@@ -234,12 +298,28 @@
 						</div>
 					</li>
 
-					<li class="item-menu-mobile">
+					<li class="item-menu-mobile {% if request.path == '/' %}active-menu{% endif %}">
 						<a href="/">Home</a>
 					</li>
 
-					<li class="item-menu-mobile">
+					<li class="item-menu-mobile {% if '/shop/' in request.path %}active-menu{% endif %}">
 						<a href="/shop">Shop</a>
+					</li>
+
+					<li class="item-menu-mobile sale-noti {% if '/sale/' in request.path %}active-menu{% endif %}">
+						<a href="{% url 'core:sale' %}">Sale</a>
+					</li>
+
+					<li class="item-menu-mobile {% if '/mens-wear/' in request.path %}active-menu{% endif %}">
+						<a href="/category/mens-wear">Mens Wear</a>
+					</li>
+
+					<li class="item-menu-mobile {% if '/womens-wear/' in request.path %}active-menu{% endif %}">
+						<a href="/category/womens-wear">Womens Wear</a>
+					</li>
+
+					<li class="item-menu-mobile {% if '/about/' in request.path %}active-menu{% endif %}">
+						<a href="{% url 'core:about' %}">About</a>
 					</li>
 
 					{% categories_mobile %}

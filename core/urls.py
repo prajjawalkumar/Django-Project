@@ -11,13 +11,19 @@ from .views import (
     PaymentView,
     AddCouponView,
     RequestRefundView,
-    CategoryView
+    CategoryView,
+    SearchView,
+    AboutView,
+    SaleView
 )
 
 app_name = 'core'
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
+    path('about/', AboutView.as_view(), name='about'),
+    path('sale/', SaleView.as_view(), name='sale'),
+    path('search/', SearchView.as_view(), name='search'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('category/<slug>/', CategoryView.as_view(), name='category'),
     path('product/<slug>/', ItemDetailView.as_view(), name='product'),
