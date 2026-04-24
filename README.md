@@ -1,9 +1,58 @@
-# Django-Ecommerce
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/36c4c7e2-ac88-4a9f-a7e4-a149fa568abe" /><img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f6152cf9-a23c-412a-8c8f-cfa32eb166a6" /># My Ecommerce Project Using Django
 
-Ecommerce website built with Django 2.2.3, Python 3.7.3, and AWS
+This is a custom ecommerce website built using Django.
+The platform allows users to browse products, add them to cart, and place orders through a smooth checkout process.
+It also includes an admin panel for managing products and orders.
 
-"C:\Users\HP\Pictures\Screenshots\Screenshot (110).png"
-`Product Slide`
+## 🚀 Features
+## 🚀 Features
+
+- User Registration & Login System  
+- Product Listing (Shop Page)  
+- Product Detail View  
+- Category-wise Product Display  
+- Add to Cart Functionality  
+- Cart Management (Update Quantity / Remove Items)  
+- Checkout & Billing Address System  
+- Order Placement Functionality  
+- Dynamic Product Rendering using Django Templates  
+- Responsive User Interface (Mobile Friendly)  
+- Django Admin Panel for Product & Order Management  
+- Secure Backend using Django Framework
+- Order Tracking
+- Online Payment
+  This project follows the MVC (Model-View-Template) architecture of Django, ensuring separation of concerns and scalability.
+  
+📸 FINAL Figure STRUCTURE
+🔷 🔹 SECTION 1: User Interface (Frontend)
+📌 Figure 1: Home Page
+📌 Figure 2: Shop Page
+📌 Figure 3: About Page
+📌 Figure 4: Products Detail Page
+📌 Figure 5: Product Category Page
+📌 Figure 6: Filtered Product Display
+📌 Figure 7: Products With discount
+📌 Figure 8: Product Search Result
+
+🔷 🔹 SECTION 2: Shopping Flow
+📌 Figure 9: Shopping Cart Page
+📌 Figure 10: Checkout & Billing Address Page
+
+🔷 🔹 SECTION 3: User Authentication
+📌 Figure 11: User Login Page
+📌 Figure 12: User Registration Page
+
+🔷 🔹 SECTION 4: Admin & Backend
+📌 Figure 13: Django Admin Panel
+📌 Figure 14: Product Management {Admin Panel}
+📌 Figure 15: Databse Data View
+
+🔷 🔹 SECTION 5: Extra UI Feature
+📌 Figure 16: Website Rating
+📌 Figure 17: Product Rating
+📌 Figure 18: Website Footer
+📌 Figure 19: Navigation Bar
+
 
 ![image](https://user-images.githubusercontent.com/29988949/65267147-499fc580-dac9-11e9-90e8-eccbc93c7c3a.png)
 
