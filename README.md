@@ -1,12 +1,10 @@
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/36c4c7e2-ac88-4a9f-a7e4-a149fa568abe" /><img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f6152cf9-a23c-412a-8c8f-cfa32eb166a6" /># My Ecommerce Project Using Django
+# My Ecommerce Project Using Django
 
-This is a custom ecommerce website built using Django.
+`This is a custom ecommerce website built using Django.
 The platform allows users to browse products, add them to cart, and place orders through a smooth checkout process.
-It also includes an admin panel for managing products and orders.
+It also includes an admin panel for managing products and orders.`
 
 ## 🚀 Features
-## 🚀 Features
-
 - User Registration & Login System  
 - Product Listing (Shop Page)  
 - Product Detail View  
@@ -21,9 +19,11 @@ It also includes an admin panel for managing products and orders.
 - Secure Backend using Django Framework
 - Order Tracking
 - Online Payment
-  This project follows the MVC (Model-View-Template) architecture of Django, ensuring separation of concerns and scalability.
+- This project follows the MVC (Model-View-Template) architecture of Django, ensuring separation of concerns and scalability.
   
+
 📸 FINAL Figure STRUCTURE
+
 🔷 🔹 SECTION 1: User Interface (Frontend)
 📌 Figure 1: Home Page
 📌 Figure 2: Shop Page
