@@ -143,8 +143,37 @@ class OrderSummaryView(LoginRequiredMixin, View):
 
 class ShopView(ListView):
     model = Item
-    paginate_by = 6
+    paginate_by = 12
     template_name = "shop.html"
+
+    def get_queryset(self):
+        item_list = Item.objects.filter(is_active=True)
+        
+        # Filtering by price
+        min_price = self.request.GET.get('min_price')
+        max_price = self.request.GET.get('max_price')
+        if min_price:
+            item_list = item_list.filter(price__gte=min_price)
+        if max_price:
+            item_list = item_list.filter(price__lte=max_price)
+
+        # Sorting
+        sort = self.request.GET.get('sort')
+        if sort == 'price_low':
+            item_list = item_list.order_by('price')
+        elif sort == 'price_high':
+            item_list = item_list.order_by('-price')
+        elif sort == 'popularity':
+            item_list = item_list.order_by('-label')
+            
+        return item_list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_sort'] = self.request.GET.get('sort')
+        context['current_min'] = self.request.GET.get('min_price') or 290
+        context['current_max'] = self.request.GET.get('max_price') or 4740
+        return context
 
 
 class ItemDetailView(DetailView):
@@ -201,10 +230,25 @@ class AboutView(View):
 class SaleView(ListView):
     model = Item
     template_name = "sale.html"
+    paginate_by = 12
 
     def get_queryset(self):
         # Filter items that have a discount_price set
-        return Item.objects.filter(discount_price__isnull=False)
+        item_list = Item.objects.filter(discount_price__isnull=False, is_active=True)
+        
+        # Sorting
+        sort = self.request.GET.get('sort')
+        if sort == 'price_low':
+            item_list = item_list.order_by('price')
+        elif sort == 'price_high':
+            item_list = item_list.order_by('-price')
+            
+        return item_list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_sort'] = self.request.GET.get('sort')
+        return context
 
 
 class CheckoutView(View):

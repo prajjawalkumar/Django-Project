@@ -67,6 +67,12 @@ class Item(models.Model):
     def __str__(self):
         return self.title
 
+    def get_discount_percent(self):
+        if self.discount_price:
+            discount = ((self.price - self.discount_price) / self.price) * 100
+            return int(discount)
+        return None
+
     def get_absolute_url(self):
         return reverse("core:product", kwargs={
             'slug': self.slug

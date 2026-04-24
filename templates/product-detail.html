@@ -1,6 +1,172 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+    .delivery-details-container {
+        border: 1px solid #e9ecef;
+        border-radius: 16px;
+        padding: 24px;
+        margin-top: 30px;
+        background: #ffffff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .delivery-details-container:hover {
+        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        transform: translateY(-2px);
+    }
+
+    .delivery-details-title {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .delivery-details-title::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #eee;
+        margin-left: 15px;
+    }
+
+    .location-box {
+        background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+        padding: 15px 20px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border: 1px solid #d0e3ff;
+    }
+
+    .location-box i {
+        color: #2874f0;
+        font-size: 1.2rem;
+        margin-right: 15px;
+    }
+    
+    .location-box span {
+        color: #444;
+        font-weight: 500;
+    }
+
+    .location-link {
+        color: #2874f0 !important;
+        font-weight: 700;
+        margin-left: 5px;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+    
+    .location-link:hover {
+        text-decoration: underline;
+        color: #1a56b8 !important;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 15px 0;
+        border-top: 1px solid #f1f1f1;
+    }
+
+    .info-item i {
+        margin-top: 3px;
+        margin-right: 15px;
+        color: #777;
+        font-size: 1.1rem;
+        width: 20px;
+        text-align: center;
+    }
+
+    .info-content h6 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 4px;
+    }
+    
+    .info-content p {
+        font-size: 0.85rem;
+        color: #666;
+        margin-bottom: 0;
+    }
+
+    .countdown-timer {
+        color: #ff5722;
+        font-weight: 700;
+        background: #fff3f0;
+        padding: 2px 8px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-top: 5px;
+    }
+
+    .badges-row {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 25px;
+        border-top: 1px solid #f1f1f1;
+        margin-top: 5px;
+    }
+
+    .badge-item {
+        text-align: center;
+        flex: 1;
+        padding: 0 5px;
+    }
+
+    .badge-icon-wrapper {
+        width: 50px;
+        height: 50px;
+        background: #f8f9fa;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid #eee;
+    }
+
+    .badge-item:hover .badge-icon-wrapper {
+        background: #ffffff;
+        transform: translateY(-5px) rotate(5deg);
+        box-shadow: 0 10px 20px rgba(40, 116, 240, 0.15);
+        border-color: #2874f0;
+    }
+
+    .badge-icon-wrapper i {
+        color: #2874f0;
+        font-size: 1.4rem;
+    }
+
+    .badge-text {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #444;
+        line-height: 1.3;
+    }
+    
+    .assured-badge {
+        display: inline-flex;
+        align-items: center;
+        background: #2874f0;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-top: 5px;
+    }
+</style>
+
 
 	<!-- breadcrumb -->
 	<div class="bread-crumb bgwhite flex-w p-l-52 p-r-15 p-t-30 p-l-15-sm">
@@ -30,18 +196,6 @@
 						<div class="item-slick3" data-thumb="{{ object.image.url }}">
 							<div class="wrap-pic-w">
 								<img src="{{ object.image.url }}" alt="{{ object.title }}">
-							</div>
-						</div>
-
-						<div class="item-slick3" data-thumb="{% static 'images/product-detail2.jpg' %}">
-							<div class="wrap-pic-w">
-								<img src="{% static 'images/product-detail2.jpg' %}" alt="IMG-PRODUCT">
-							</div>
-						</div>
-
-						<div class="item-slick3" data-thumb="{% static 'images/product-detail3.jpg' %}">
-							<div class="wrap-pic-w">
-								<img src="{% static 'images/product-detail3.jpg' %}" alt="IMG-PRODUCT">
 							</div>
 						</div>
 					</div>
@@ -90,21 +244,7 @@
 						</div>
 					</div>
 
-					<div class="flex-m flex-w">
-						<div class="s-text15 w-size15 t-center">
-							Color
-						</div>
-
-						<div class="rs2-select2 rs3-select2 w-size16">
-							<select class="form-control" name="color">
-								<option>Choose an option</option>
-								<option>Gray</option>
-								<option>Red</option>
-								<option>Black</option>
-								<option>Blue</option>
-							</select>
-						</div>
-					</div>
+					<!-- Color dropdown removed as requested -->
 
 					<div class="flex-r-m flex-w p-t-10">
 						<div class="w-size16 flex-m flex-w">
@@ -134,8 +274,68 @@
 				</div>
 				<br>
 				<div class="p-b-45">
-					<span class="s-text8 m-r-35">SKU: {{ object.stock_no }}</span>
+					<span class="s-text8 m-r-35" style="color: #28a745; font-weight: 700;">Available: {{ object.stock_no }}</span>
 					<span class="s-text8">Categories: {{ object.category }}</span>
+				</div>
+
+				<div class="p-b-20">
+					<span class="s-text8" style="background: #f8f9fa; padding: 8px 15px; border-radius: 20px; border: 1px solid #eee;">
+						<i class="fa fa-shopping-cart" style="color: #2874f0; margin-right: 5px;"></i>
+						<strong style="color: #333;">{% with ''|center:object.id as range %}{% for i in range %}{% if forloop.first %}{{ 100|add:forloop.counter0 }}{% endif %}{% endfor %}{% if not object.id %}120{% endif %}{% endwith %}</strong> people bought this in the last 7 days
+					</span>
+				</div>
+
+				<!-- Delivery Details Section -->
+				<div class="delivery-details-container">
+					<h5 class="delivery-details-title">Delivery details</h5>
+					
+					<div class="location-box">
+						<i class="fa fa-map-marker"></i>
+						<span class="s-text8">Location not set <a href="#" class="location-link">Select delivery location <i class="fa fa-angle-right"></i></a></span>
+					</div>
+					
+					<div class="info-item">
+						<i class="fa fa-truck"></i>
+						<div class="info-content">
+							<h6 id="delivery-date">Delivery by 26 Apr, Sun</h6>
+							<p>Fastest delivery available</p>
+							<div class="countdown-timer">
+								Order in <span id="countdown">01h 58m 49s</span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="info-item">
+						<i class="fa fa-building"></i>
+						<div class="info-content">
+							<h6>Fulfilled by TrendyCart</h6>
+							<p>4.2 ★ • 8 years of trusted service</p>
+							<a href="#" class="location-link" style="font-size: 0.8rem;">See other sellers</a>
+						</div>
+					</div>
+					
+					<div class="badges-row">
+						<div class="badge-item">
+							<div class="badge-icon-wrapper">
+								<i class="fa fa-refresh"></i>
+							</div>
+							<p class="badge-text">10-Day<br>Return</p>
+						</div>
+						
+						<div class="badge-item">
+							<div class="badge-icon-wrapper">
+								<i class="fa fa-money"></i>
+							</div>
+							<p class="badge-text">Cash on<br>Delivery</p>
+						</div>
+						
+						<div class="badge-item">
+							<div class="badge-icon-wrapper" style="background: white; border: none;">
+								<img src="{% static 'images/icons/assured.png' %}" alt="Assured" style="width: 100%; height: 100%; object-fit: contain;">
+							</div>
+							<p class="badge-text">TrendyCart<br>Assured</p>
+						</div>
+					</div>
 				</div>
 
 				<!--  -->
@@ -169,15 +369,71 @@
 
 				<div class="wrap-dropdown-content bo7 p-t-15 p-b-14">
 					<h5 class="js-toggle-dropdown-content flex-sb-m cs-pointer m-text19 color0-hov trans-0-4">
-						Reviews (0)
+						Reviews ({% with ''|center:object.id as range %}{% for i in range %}{% if forloop.first %}{{ 15|add:forloop.counter0 }}{% endif %}{% endfor %}{% if not object.id %}18{% endif %}{% endwith %})
 						<i class="down-mark fs-12 color1 fa fa-minus dis-none" aria-hidden="true"></i>
 						<i class="up-mark fs-12 color1 fa fa-plus" aria-hidden="true"></i>
 					</h5>
 
 					<div class="dropdown-content dis-none p-t-15 p-b-23">
-						<p class="s-text8">
-							Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at ipsum blandit ornare vel sed velit. Proin gravida arcu nisl, a dignissim mauris placerat
-						</p>
+						<div class="p-b-20">
+							<div class="flex-w p-b-5">
+								<div class="s-text16 m-r-10"><strong>Rahul Sharma</strong></div>
+								<div class="fs-13 color1">
+									<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+								</div>
+							</div>
+							<p class="s-text8">Great quality and perfect fit. Highly recommended!</p>
+						</div>
+
+						<div class="p-b-20">
+							<div class="flex-w p-b-5">
+								<div class="s-text16 m-r-10"><strong>Priya Patel</strong></div>
+								<div class="fs-13 color1">
+									<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+								</div>
+							</div>
+							<p class="s-text8">The fabric is very soft and comfortable. Fast delivery too.</p>
+						</div>
+
+						<div class="p-b-20">
+							<div class="flex-w p-b-5">
+								<div class="s-text16 m-r-10"><strong>Amit Kumar</strong></div>
+								<div class="fs-13 color1">
+									<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+								</div>
+							</div>
+							<p class="s-text8">Nice product, exactly as shown in images.</p>
+						</div>
+
+						<div class="p-b-20">
+							<div class="flex-w p-b-5">
+								<div class="s-text16 m-r-10"><strong>Sneha Gupta</strong></div>
+								<div class="fs-13 color1">
+									<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+								</div>
+							</div>
+							<p class="s-text8">Value for money. Best purchase this year!</p>
+						</div>
+
+						<div class="p-b-20">
+							<div class="flex-w p-b-5">
+								<div class="s-text16 m-r-10"><strong>Vikram Singh</strong></div>
+								<div class="fs-13 color1">
+									<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+								</div>
+							</div>
+							<p class="s-text8">Premium look and feel. Loved it!</p>
+						</div>
+
+						<div class="p-b-20">
+							<div class="flex-w p-b-5">
+								<div class="s-text16 m-r-10"><strong>Anjali Rai</strong></div>
+								<div class="fs-13 color1">
+									<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+								</div>
+							</div>
+							<p class="s-text8">Average product, delivery was bit late.</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -657,4 +913,48 @@
 	<div id="dropDownSelect1"></div>
 	<div id="dropDownSelect2"></div>
 
-	{% endblock content %}
+	{% block extra_scripts %}
+	<script>
+		// Dynamic Delivery Date and Countdown
+		function updateDeliveryDetails() {
+			// 1. Dynamic Date Calculation
+			const deliveryDateElement = document.getElementById('delivery-date');
+			if (deliveryDateElement) {
+				const today = new Date();
+				const deliveryDate = new Date(today);
+				deliveryDate.setDate(today.getDate() + 4); // Set delivery for 4 days from now
+				
+				const options = { weekday: 'short', day: 'numeric', month: 'short' };
+				const formattedDate = deliveryDate.toLocaleDateString('en-IN', options);
+				deliveryDateElement.innerHTML = `Delivery by ${formattedDate}`;
+			}
+
+			// 2. Countdown Timer
+			let time = 7129; // 01h 58m 49s in seconds
+			const timerElement = document.getElementById('countdown');
+			
+			const timer = setInterval(() => {
+				let hours = Math.floor(time / 3600);
+				let minutes = Math.floor((time % 3600) / 60);
+				let seconds = time % 60;
+				
+				hours = hours < 10 ? '0' + hours : hours;
+				minutes = minutes < 10 ? '0' + minutes : minutes;
+				seconds = seconds < 10 ? '0' + seconds : seconds;
+				
+				if (timerElement) {
+					timerElement.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+				}
+				
+				if (time <= 0) {
+					clearInterval(timer);
+				} else {
+					time--;
+				}
+			}, 1000);
+		}
+		
+		document.addEventListener('DOMContentLoaded', updateDeliveryDetails);
+	</script>
+	{% endblock extra_scripts %}
+	{% endblock content %}

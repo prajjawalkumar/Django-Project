@@ -266,7 +266,15 @@
 
         <!-- Products Heading -->
         <div class="flex-sb-m flex-w p-b-35">
-            <h2 class="m-text5">On Sale Products</h2>
+            <div class="flex-w">
+                <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10" >
+                    <select class="selection-2" name="sorting" id="sorting-select" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 4px;">
+                        <option value="default" {% if current_sort == 'default' %}selected{% endif %}>Default Sorting</option>
+                        <option value="price_low" {% if current_sort == 'price_low' %}selected{% endif %}>Price: low to high</option>
+                        <option value="price_high" {% if current_sort == 'price_high' %}selected{% endif %}>Price: high to low</option>
+                    </select>
+                </div>
+            </div>
             <div class="s-text8">
                 Showing {{ object_list|length }} results
             </div>
@@ -279,6 +287,12 @@
                 <div class="block2">
                     <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelsale">
                         <img src="{{ item.image.url }}" alt="IMG-PRODUCT">
+
+                        {% if item.discount_price %}
+                        <div class="discount-badge">
+                            {{ item.get_discount_percent }}% OFF
+                        </div>
+                        {% endif %}
 
                         <div class="block2-overlay trans-0-4">
                             <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
@@ -299,6 +313,19 @@
                             {{ item.title }}
                         </a>
 
+                        <div class="flex-w p-b-5">
+                            <div class="fs-12 color1 m-r-5">
+                                {% if item.id|divisibleby:3 %}
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                {% elif item.id|divisibleby:2 %}
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+                                {% else %}
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+                                {% endif %}
+                            </div>
+                            <span class="s-text8">({% with ''|center:item.id as range %}{% for i in range %}{% if forloop.first %}{{ 20|add:forloop.counter0 }}{% endif %}{% endfor %}{% if not item.id %}25{% endif %}{% endwith %})</span>
+                        </div>
+
                         <span class="block2-oldprice m-text7 p-r-5">
                             ₹{{ item.price }}
                         </span>
@@ -306,6 +333,12 @@
                         <span class="block2-newprice m-text8 p-r-5">
                             ₹{{ item.discount_price }}
                         </span>
+
+                        <div class="p-t-5">
+                            <span class="s-text8" style="font-size: 11px; background: #fffbe6; color: #faad14; padding: 2px 8px; border-radius: 10px;">
+                                {% with ''|center:item.id as range %}{% for i in range %}{% if forloop.first %}{{ 60|add:forloop.counter0 }}{% endif %}{% endfor %}{% if not item.id %}75{% endif %}{% endwith %}+ sold during sale
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -318,3 +351,18 @@
     </div>
 </div>
 {% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var sortingSelect = document.getElementById('sorting-select');
+        if (sortingSelect) {
+            sortingSelect.addEventListener('change', function() {
+                var url = new URL(window.location.href);
+                url.searchParams.set('sort', this.value);
+                window.location.href = url.toString();
+            });
+        }
+    });
+</script>
+{% endblock extra_scripts %}
