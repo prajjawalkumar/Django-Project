@@ -39,9 +39,9 @@
 		</span>
 	</div>
 
-	<!-- Modern Category Hero Banner -->
-	<section class="modern-hero-section" style="{% if category_image %}background-image: url('{{ category_image.url }}'); background-size: cover; background-position: center;{% endif %}">
-		<div class="modern-hero-overlay">
+	<!-- Modern Category Hero Banner - Unified Plain HD Look -->
+	<section class="modern-hero-section" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); background-size: cover; background-position: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+		<div class="modern-hero-overlay" style="background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);">
             <h2 class="modern-hero-title">
                 {{ category_title }}
             </h2>
@@ -52,7 +52,7 @@
             </p>
             {% else %}
             <p class="modern-hero-subtitle">
-                Discover the latest {{ category_title|lower }} trends.
+                Premium collection of {{ category_title|lower }} for your unique style.
             </p>
             {% endif %}
 		</div>

@@ -1,84 +1,177 @@
 
+<style>
+    .order-summary-card {
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        padding: 30px;
+        border: none;
+        position: sticky;
+        top: 100px;
+    }
+    .order-summary-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+    .order-summary-header h4 {
+        font-weight: 800;
+        font-size: 20px;
+        margin: 0;
+        color: #1a1a1a;
+    }
+    .order-summary-header .badge {
+        background: #1a1a1a;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+    .order-item-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid #f1f1f1;
+    }
+    .order-item:last-child {
+        border-bottom: none;
+    }
+    .order-item-title {
+        font-weight: 600;
+        color: #1a1a1a;
+        font-size: 14px;
+        margin-bottom: 5px;
+        display: block;
+    }
+    .order-item-qty {
+        font-size: 12px;
+        color: #888;
+    }
+    .order-item-price {
+        font-weight: 700;
+        color: #1a1a1a;
+        font-size: 14px;
+    }
+    .promo-section {
+        background: #f8fafc;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 25px 0;
+    }
+    .promo-section .text-success {
+        color: #28a745 !important;
+        font-weight: 700;
+    }
+    .total-section {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 2px solid #f1f1f1;
+    }
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .total-label {
+        font-size: 16px;
+        color: #888;
+        font-weight: 500;
+    }
+    .total-val {
+        font-size: 24px;
+        font-weight: 900;
+        color: #1a1a1a;
+    }
+    .promo-input-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+    }
+    .promo-input {
+        flex: 1;
+        height: 46px;
+        border-radius: 10px;
+        border: 2px solid #e2e8f0;
+        padding: 0 15px;
+        font-size: 14px;
+        background: #fff;
+    }
+    .btn-promo {
+        background: #1a1a1a;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 0 20px;
+        font-weight: 700;
+        font-size: 13px;
+        transition: all 0.2s;
+    }
+    .btn-promo:hover {
+        background: #333;
+    }
+</style>
 
-   <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+<div class="order-summary-card">
+    <div class="order-summary-header">
+        <h4>Order Summary</h4>
+        <span class="badge">{{ order.items.count }}</span>
+    </div>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-      .form-control {
-    display: block;
-    width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da !important;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-
-    </style>
-  
- 
-    
-
-   
-
-    <div class="col-md-4 order-md-2 mb-4" style="background: #fff;">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Your cart</span>
-        <span class="badge badge-secondary badge-pill">{{ order.items.count }}</span>
-      </h4>
-      <ul class="list-group mb-3">
+    <ul class="order-item-list">
         {% for order_item in order.items.all %}
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0">{{ order_item.item.title }}</h6>
-            <small class="text-muted">quantity : {{ order_item.quantity }}</small>
-          </div>
-          <span class="text-muted">₹{{ order_item.get_final_price }}</span>
+        <li class="order-item">
+            <div>
+                <span class="order-item-title">{{ order_item.item.title }}</span>
+                <span class="order-item-qty">Quantity: {{ order_item.quantity }}</span>
+            </div>
+            <span class="order-item-price">₹{{ order_item.get_final_price }}</span>
         </li>
         {% endfor %}
-        <li class="list-group-item d-flex justify-content-between bg-light">
-          <div class="text-success">
-            <h6 class="my-0">Promo code</h6>
-            <small>{{order.coupon.code}}</small>
-          </div>
-          <span class="text-success">-₹{{ order.coupon.amount }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total (INR)</span>
-          <strong>₹{{ order.get_total }}</strong>
-        </li>
-      </ul>
-      
-      {% if DISPLAY_COUPON_FORM %}
-      <form method="POST" action="{% url 'core:add-coupon' %}" class="card p-2">
-        {% csrf_token %}
-        <div class="input-group">
-          {{ couponform.code }}
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
-          </div>
+    </ul>
+
+    {% if order.coupon %}
+    <div class="promo-section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="my-0">Promo Applied</h6>
+                <small class="text-success">{{ order.coupon.code }}</small>
+            </div>
+            <span class="text-success">- ₹{{ order.coupon.amount }}</span>
         </div>
-      </form>
-      {% endif %}
     </div>
+    {% endif %}
+
+    <div class="total-section">
+        <div class="total-row">
+            <span class="total-label">Subtotal</span>
+            <span class="font-weight-bold" style="color: #1a1a1a;">₹{{ order.get_total }}</span>
+        </div>
+        <div class="total-row mt-3">
+            <span class="total-label">Total (INR)</span>
+            <span class="total-val">₹{{ order.get_total }}</span>
+        </div>
+    </div>
+    
+    {% if DISPLAY_COUPON_FORM %}
+    <div class="mt-4">
+        <p class="text-muted small mb-2">Have a promo code?</p>
+        <form method="POST" action="{% url 'core:add-coupon' %}">
+            {% csrf_token %}
+            <div class="promo-input-group">
+                <input type="text" name="code" class="promo-input" placeholder="Enter code">
+                <button type="submit" class="btn-promo">Apply</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
 
   
 

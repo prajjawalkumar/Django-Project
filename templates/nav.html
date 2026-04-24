@@ -313,7 +313,7 @@
 				<!-- Search bar -->
 				<div class="m-l-30">
 					<form action="{% url 'core:search' %}" method="GET" class="premium-search">
-						<input type="text" name="q" placeholder="Search for fashion..." style="background: transparent; border: none; outline: none; flex-grow: 1; font-size: 14px; color: #1e293b;">
+						<input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search for fashion..." style="background: transparent; border: none; outline: none; flex-grow: 1; font-size: 14px; color: #1e293b;">
 						<button type="submit" style="width: 40px; height: 40px; background: #2874f0; border-radius: 50%; border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer;">
 							<i class="fa fa-search" aria-hidden="true"></i>
 						</button>
@@ -342,6 +342,10 @@
 
 							<li class="{% if '/womens-wear/' in request.path %}active-menu{% endif %}">
 								<a href="/category/womens-wear">Women</a>
+							</li>
+
+							<li class="{% if '/about/' in request.path %}active-menu{% endif %}">
+								<a href="/about/">About</a>
 							</li>
 
 							{% if request.user.is_authenticated %}
@@ -434,6 +438,10 @@
 
 					<li class="item-menu-mobile {% if '/womens-wear/' in request.path %}active-menu{% endif %}">
 						<a href="/category/womens-wear">Womens Wear</a>
+					</li>
+
+					<li class="item-menu-mobile {% if '/about/' in request.path %}active-menu{% endif %}">
+						<a href="/about/">About Us</a>
 					</li>
 
 					{% if request.user.is_authenticated %}

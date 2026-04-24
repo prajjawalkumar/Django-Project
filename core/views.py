@@ -22,16 +22,32 @@ class SearchView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
+        item_list = Item.objects.filter(is_active=True)
+        
         if query:
-            return Item.objects.filter(
+            item_list = item_list.filter(
                 Q(title__icontains=query) |
                 Q(description_long__icontains=query) |
                 Q(description_short__icontains=query) |
                 Q(category__title__icontains=query) |
-                Q(category__parent__title__icontains=query),
-                is_active=True
+                Q(category__parent__title__icontains=query)
             ).distinct()
-        return Item.objects.filter(is_active=True)
+        
+        # Filtering by price
+        min_price = self.request.GET.get('min_price')
+        max_price = self.request.GET.get('max_price')
+        if min_price:
+            item_list = item_list.filter(price__gte=min_price)
+        if max_price:
+            item_list = item_list.filter(price__lte=max_price)
+            
+        return item_list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_min'] = self.request.GET.get('min_price') or 290
+        context['current_max'] = self.request.GET.get('max_price') or 4740
+        return context
 
 import random
 import string
@@ -170,6 +186,9 @@ class ShopView(ListView):
             item_list = item_list.order_by('-price')
         elif sort == 'popularity':
             item_list = item_list.order_by('-label')
+        else:
+            # Default: Randomize to show variety
+            item_list = item_list.order_by('?')
             
         return item_list
 

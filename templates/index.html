@@ -138,22 +138,26 @@
     }
 
     /* Featured Products */
-    .product-grid-section {
-        padding: 80px 0;
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
     }
-    
+
     .premium-product-card {
         background: #fff;
         border-radius: 16px;
         padding: 15px;
-        transition: all 0.3s;
+        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         border: 1px solid #f1f5f9;
         height: 100%;
+        position: relative;
     }
     
     .premium-product-card:hover {
-        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-        border-color: var(--primary-blue);
+        transform: translateY(-15px);
+        box-shadow: 0 20px 40px rgba(40, 116, 240, 0.15);
+        border-color: rgba(40, 116, 240, 0.3);
     }
     
     .product-img-wrapper {
@@ -161,6 +165,7 @@
         overflow: hidden;
         position: relative;
         margin-bottom: 20px;
+        z-index: 1;
     }
     
     .product-img-wrapper img {
@@ -243,11 +248,88 @@
     <!-- 1. Modern Hero Slider Section -->
 	<section class="slide1 reveal-anim">
 		<div class="wrap-slick1">
-			<div class="slick1">
-				{% slides %}
+			<div class="slick1" id="hero-slider">
+				<!-- Slide 1: Summer Story (Epic HD) -->
+				<div class="item-slick1 item1-slick1" style="background-image: url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2000'); background-size: cover; background-position: center;">
+					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170" style="background: rgba(0,0,0,0.2);">
+						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="fadeInDown" style="color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                            The New 2026 Season is Here
+                        </span>
+
+						<h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="fadeInUp" style="font-family: 'Poppins', sans-serif; font-weight: 900; color: #ffffff; text-transform: uppercase; font-size: 70px; letter-spacing: -2px; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+							Your <span style="color: #ff4757;">Summer Story</span> Starts Here
+						</h2>
+
+						<div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="zoomIn">
+							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4" style="font-weight: 800; text-transform: uppercase; color: #1e293b;">
+								Shop Now
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Slide 2: Men's Fashion -->
+				<div class="item-slick1 item1-slick1" style="background-image: url('https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=2000'); background-size: cover; background-position: center;">
+					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170" style="background: rgba(0, 0, 0, 0.4);">
+						<h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-15" data-appear="lightSpeedIn" style="font-family: 'Poppins', sans-serif; font-weight: 900; color: #ffffff; font-size: 80px; text-transform: uppercase; letter-spacing: -3px; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+							Men's <span style="color: #2874f0;">Collection</span>
+						</h2>
+
+                        <p class="animated visible-false m-b-37" data-appear="fadeInUp" style="color: #ffffff; font-size: 20px; max-width: 600px; text-align: center; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                            Sharp looks for the modern man. Performance meets style.
+                        </p>
+
+						<div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="slideInUp">
+							<a href="/category/mens-wear/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4" style="font-weight: 800; text-transform: uppercase; color: #1e293b;">
+								Shop Men's
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Slide 3: Women's Collection -->
+				<div class="item-slick1 item1-slick1" style="background-image: url('https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?q=80&w=2000'); background-size: cover; background-position: center;">
+					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170" style="background: rgba(0,0,0,0.4);">
+						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rollIn" style="color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 5px;">
+                            Elegance Redefined
+                        </span>
+
+						<h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="fadeInRight" style="font-family: 'Playfair Display', serif; font-weight: 900; color: #ffffff; font-size: 75px; text-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+							Women's <span style="color: #ff4757;">Wear</span>
+						</h2>
+
+						<div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="rotateInUpRight">
+							<a href="/category/womens-wear/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4" style="font-weight: 800; text-transform: uppercase; color: #1e293b;">
+								Shop Women's
+							</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
+
+    <script>
+        // Force Re-initialize Slider for Auto-play
+        $(document).ready(function() {
+            var $slider = $('#hero-slider');
+            if ($slider.hasClass('slick-initialized')) {
+                $slider.slick('unslick');
+            }
+            $slider.slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                fade: true,
+                dots: true,
+                infinite: true,
+                autoplay: true,
+                autoplaySpeed: 4000,
+                arrows: true,
+                prevArrow:'<button class="arrow-slick1 prev-slick1"><i class="fa fa-angle-left"></i></button>',
+                nextArrow:'<button class="arrow-slick1 next-slick1"><i class="fa fa-angle-right"></i></button>',
+            });
+        });
+    </script>
 
     <!-- 2. Service Highlights Section -->
     <section class="service-highlight reveal-anim delay-1">
@@ -438,21 +520,42 @@
     </section>
 
     <script>
-        // Scroll Reveal Animation Script
-        const observerOptions = {
-            threshold: 0.1
-        };
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll Reveal Animation Script
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: stop observing after reveal
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-        document.querySelectorAll('.reveal-anim').forEach(el => {
-            observer.observe(el);
+            const revealElements = document.querySelectorAll('.reveal-anim');
+            if (revealElements.length > 0) {
+                revealElements.forEach(el => {
+                    observer.observe(el);
+                });
+            } else {
+                // Fallback: if no elements found or script error, show everything
+                console.log('No reveal elements found, checking again...');
+            }
+            
+            // Force reveal elements that are already in viewport
+            setTimeout(() => {
+                revealElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 500);
         });
     </script>
 {% endblock content %}

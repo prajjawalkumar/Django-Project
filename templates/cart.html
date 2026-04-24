@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +29,8 @@
 	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom_redesign.css' %}">
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
@@ -376,11 +378,17 @@
 		</div>
 	</header>
 
-	<!-- Title Page -->
-	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-01.jpg);">
-		<h2 class="l-text2 t-center">
-			Cart
-		</h2>
+	<!-- Modern Cart Hero Banner -->
+	<section class="modern-hero-section" style="background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%), url('https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=1600'); background-size: cover; background-position: center;">
+		<div class="modern-hero-overlay">
+			<h2 class="modern-hero-title">
+				Shopping Cart
+			</h2>
+			<div class="modern-hero-divider"></div>
+			<p class="modern-hero-subtitle">
+				Review your selected items and proceed to checkout.
+			</p>
+		</div>
 	</section>
 
 	<!-- Cart -->

@@ -1,0 +1,142 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style type="text/css">
+    /* High-End Professional Django Admin Redesign - REVERTED & IMPROVED */
+    :root {
+        --primary-color: #0f172a;
+        --secondary-color: #1e293b;
+        --accent-color: #4f46e5; /* Indigo */
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --text-light: #f8fafc;
+        --text-dark: #1e293b;
+        --text-muted: #64748b;
+        --bg-light: #f1f5f9;
+        --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        --header-height: 70px;
+    }
+
+    body {
+        background-color: var(--bg-light) !important;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+        color: var(--text-dark) !important;
+    }
+
+    /* Header */
+    #header {
+        background: var(--primary-color) !important;
+        padding: 0 40px !important;
+        height: var(--header-height) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        border-bottom: 3px solid var(--accent-color) !important;
+    }
+
+    #branding h1 {
+        font-size: 20px !important;
+        font-weight: 800 !important;
+        color: #fff !important;
+        margin: 0 !important;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    #branding h1 a { color: #fff !important; }
+
+    #user-tools {
+        color: var(--text-light) !important;
+        font-size: 13px !important;
+        background: rgba(255,255,255,0.05) !important;
+        padding: 8px 15px !important;
+        border-radius: 30px !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+    }
+
+    #user-tools a { color: var(--accent-color) !important; font-weight: 700 !important; }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+        background: #fff !important;
+        padding: 15px 40px !important;
+        border-bottom: 1px solid #edf2f7 !important;
+        font-size: 13px !important;
+        font-weight: 500 !important;
+        margin-bottom: 20px !important;
+    }
+
+    /* Content Area Layout */
+    #content {
+        padding: 0 40px 40px 40px !important;
+        display: flex !important;
+        gap: 40px !important;
+        align-items: flex-start !important;
+    }
+
+    #content-main {
+        flex: 1 !important;
+        width: auto !important;
+    }
+
+    /* Modules (Cards) */
+    .module {
+        background: #ffffff !important;
+        border-radius: 16px !important;
+        box-shadow: var(--card-shadow) !important;
+        border: 1px solid #edf2f7 !important;
+        overflow: hidden !important;
+        margin-bottom: 30px !important;
+    }
+
+    .module h2, .module caption {
+        background: var(--secondary-color) !important;
+        padding: 12px 20px !important;
+        font-weight: 700 !important;
+        font-size: 14px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        color: var(--text-light) !important;
+        border: none !important;
+    }
+
+    /* Tables */
+    table thead th {
+        background: #f8fafc !important;
+        padding: 12px 20px !important;
+        color: #475569 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px solid #e2e8f0 !important;
+    }
+
+    table tbody td, table tbody th {
+        padding: 12px 20px !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+    }
+
+    /* Buttons */
+    .button, input[type=submit], .submit-row input {
+        background: var(--accent-color) !important;
+        border-radius: 8px !important;
+        padding: 10px 20px !important;
+        font-weight: 700 !important;
+        border: none !important;
+        box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2) !important;
+        color: #fff !important;
+    }
+
+    /* Custom Icons */
+    .app-core th a::before { content: "\f013"; font-family: "Font Awesome 6 Free"; font-weight: 900; margin-right: 10px; color: var(--accent-color); }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><i class="fas fa-shopping-cart" style="color: var(--accent-color)"></i> <a href="{% url 'admin:index' %}">TRENDY CART Admin</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

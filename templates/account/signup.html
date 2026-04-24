@@ -2,38 +2,203 @@
 
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
-{% block content %}
+{% block extra_head %}
 <style type="text/css">
-  input {
+    :root {
+        --glass-bg: rgba(255, 255, 255, 0.8);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --primary-accent: #667eea;
+        --secondary-accent: #764ba2;
+    }
 
-    border: 1px solid #ced4da !important;
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
 
-}
+    .signup-wrapper {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 60px 20px;
+    }
+
+    /* Animated Background */
+    .bg-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: linear-gradient(45deg, #f3f4f7 0%, #e2e8f0 100%);
+        overflow: hidden;
+    }
+
+    .blob {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+        filter: blur(80px);
+        border-radius: 50%;
+        z-index: -1;
+        animation: move 25s infinite alternate;
+    }
+
+    .blob-1 { top: -100px; left: -100px; animation-delay: 0s; }
+    .blob-2 { bottom: -100px; right: -100px; animation-delay: -5s; width: 600px; height: 600px; }
+
+    @keyframes move {
+        from { transform: translate(0, 0) scale(1); }
+        to { transform: translate(100px, 100px) scale(1.2); }
+    }
+
+    /* Glassmorphism Card */
+    .signup-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        padding: 50px;
+        width: 100%;
+        max-width: 520px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .signup-header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .signup-header h2 {
+        font-weight: 800;
+        color: #1a202c;
+        font-size: 32px;
+        letter-spacing: -0.5px;
+        margin-bottom: 10px;
+    }
+
+    .signup-header p {
+        color: #718096;
+        font-size: 15px;
+    }
+
+    /* Form Styling */
+    .signup-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .signup-form label {
+        font-weight: 600;
+        color: #4a5568;
+        font-size: 14px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .signup-form input {
+        width: 100%;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid transparent;
+        border-radius: 12px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .signup-form input:focus {
+        border-color: var(--primary-accent);
+        background: #fff;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .btn-signup {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.4);
+        margin-top: 10px;
+    }
+
+    .btn-signup:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 20px 25px -5px rgba(102, 126, 234, 0.5);
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 14px;
+        color: #718096;
+    }
+
+    .login-link a {
+        color: var(--primary-accent);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    /* Helper text styling */
+    .form-text {
+        font-size: 12px;
+        color: #a0aec0;
+        margin-top: 5px;
+    }
 </style>
+{% endblock %}
 
-
-<div class="container">
-  <div class="row">
-
-    <div class="col-md-6 mt-5 offset-3">
-    <h1>{% trans "Sign Up" %}</h1>
-
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit" class="btn btn-primary">{% trans "Sign Up" %} &raquo;</button>
-</form>
-
-</div>
-</div>
+{% block content %}
+<div class="bg-animation">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 </div>
 
+<div class="signup-wrapper">
+    <div class="signup-card">
+        <div class="signup-header">
+            <h2>Join TrendyCart</h2>
+            <p>Create an account to start your fashion journey</p>
+        </div>
+
+        <form class="signup-form" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            
+            {{ form|crispy }}
+            
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            
+            <button type="submit" class="btn-signup">{% trans "Create Account" %}</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="{{ login_url }}">Sign in</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
