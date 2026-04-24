@@ -25,6 +25,7 @@ It also includes an admin panel for managing products and orders.`
 📸 FINAL Figure STRUCTURE
 
 🔷 🔹 SECTION 1: User Interface (Frontend)
+
 📌 Figure 1: Home Page
 ![Home Page](Home-page.png)
 📌 Figure 2: Shop Page
