@@ -4,543 +4,455 @@
 {% load slide_template_tags %}
 {% block content %}
 <style>
-	/*[ Block2 ]
-///////////////////////////////////////////////////////////
-*/
-.block2-labelpromotion::before,
-.block2-labelsale::before,
-.block2-labelnew::before 
-{
-  z-index: 100;
-  font-family: Montserrat-Regular;
-  font-size: 12px;
-  color: white;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 22px;
-  border-radius: 11px;
-  position: absolute;
-  top: 12px;
-  left: 12px;
-}
+    /* Global Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-.block2-labelsale::before {
-  background-color: white;
-  color: #000;
-  content: 'Sale';
-}
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
 
-.block2-labelnew::before {
-  background-color: #007bff;
-  content: 'New';
-}
+    .reveal-anim {
+        opacity: 0;
+        transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
 
-.block2-labelpromotion::before{
-	background-color: #000;
-	content: 'Promotion';
-	width: 70px;
-  }
+    .reveal-anim.active {
+        animation: fadeInUp 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    }
 
-  .btn-dark {
-    color: #fff;
-    background-color: #000;
-    border-color: #000;
-}
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
 
-.btn-outline-dark {
-    color: #000;
-    border-color: #000;
-}
+    /* Modern Aesthetic Overrides */
+    :root {
+        --primary-blue: #2874f0;
+        --dark-bg: #0f172a;
+    }
+    
+    .sec-title h3 {
+        font-family: 'Playfair Display', serif;
+        font-weight: 900;
+        font-size: 36px;
+        letter-spacing: -1px;
+        color: #1e293b;
+    }
 
+    .service-highlight {
+        padding: 60px 0;
+        background: #f8fafc;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    
+    .service-card {
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .service-card:hover {
+        transform: scale(1.05);
+    }
+    
+    .service-card i {
+        color: var(--primary-blue);
+        transition: all 0.5s;
+    }
+    
+    .service-card:hover i {
+        transform: rotateY(360deg);
+    }
 
+    /* Category Grid */
+    .modern-cat-section {
+        padding: 80px 0;
+    }
+    
+    .cat-card {
+        position: relative;
+        height: 400px;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    
+    .cat-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .cat-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    
+    .cat-card:hover img {
+        transform: scale(1.15);
+    }
+    
+    .cat-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 40px;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        color: white;
+    }
+    
+    .cat-overlay h3 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+    
+    .btn-shop-white {
+        background: white;
+        color: black;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 12px;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s;
+    }
+    
+    .btn-shop-white:hover {
+        background: var(--primary-blue);
+        color: white;
+    }
+
+    /* Featured Products */
+    .product-grid-section {
+        padding: 80px 0;
+    }
+    
+    .premium-product-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 15px;
+        transition: all 0.3s;
+        border: 1px solid #f1f5f9;
+        height: 100%;
+    }
+    
+    .premium-product-card:hover {
+        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        border-color: var(--primary-blue);
+    }
+    
+    .product-img-wrapper {
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 20px;
+    }
+    
+    .product-img-wrapper img {
+        width: 100%;
+        aspect-ratio: 3/4;
+        object-fit: cover;
+    }
+    
+    .featured-label {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: var(--primary-blue);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    /* Full Width Promo */
+    .promo-banner-full {
+        height: 500px;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 80px 0;
+    }
+    
+    .promo-content {
+        background: rgba(255,255,255,0.9);
+        backdrop-filter: blur(10px);
+        padding: 60px;
+        border-radius: 24px;
+        text-align: center;
+        max-width: 600px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    }
+
+    /* Newsletter */
+    .newsletter-section {
+        background: var(--dark-bg);
+        padding: 100px 0;
+        color: white;
+        text-align: center;
+    }
+    
+    .news-input {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+        padding: 15px 30px;
+        border-radius: 40px;
+        color: white;
+        width: 100%;
+        max-width: 400px;
+        margin-right: 15px;
+    }
+    
+    .btn-subscribe {
+        background: var(--primary-blue);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 40px;
+        font-weight: 700;
+        border: none;
+        transition: all 0.3s;
+    }
+    
+    .btn-subscribe:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(40,116,240,0.4);
+    }
 </style>
 
-	<!-- Slide1 -->
-	<section class="slide1">
+    <!-- 1. Modern Hero Slider Section -->
+	<section class="slide1 reveal-anim">
 		<div class="wrap-slick1">
 			<div class="slick1">
-
 				{% slides %}
-
-				<!-- <div class="item-slick1 item2-slick1" style="background-image: url({% static 'images/master-slide-03.webp' %});">-->
-<!--					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">-->
-<!--						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rollIn">-->
-<!--							Women Collection 2018-->
-<!--						</span>-->
-<!--						<h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="lightSpeedIn">-->
-<!--							New arrivals-->
-<!--						</h2>-->
-<!--						<div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="slideInUp">-->
-<!--							&lt;!&ndash; Button &ndash;&gt;-->
-<!--							<a href="product.html" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">-->
-<!--								Shop Now-->
-<!--							</a>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div> -->
-
 			</div>
 		</div>
 	</section>
 
-	<!-- Category start -->
-	<style>
-		.hov1{
-			background-color: white !important;
-			color: black !important;
-			
-		}
-	</style>
-	<section class="banner bgwhite p-t-40 p-b-40">
-		<div class="container">
-			<div class="row">
-
-				{% categories_div %}
-
-<!--				<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">-->
-<!--					-->
-<!--					<div class="block1 hov-img-zoom pos-relative m-b-30">-->
-<!--						<img src="{% static 'images/banner-02.webp' %}" alt="IMG-BENNER">-->
-<!--						<div class="block1-wrapbtn w-size2">-->
-<!--							<a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">-->
-<!--								Dresses-->
-<!--							</a>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--					-->
-<!--					<div class="block1 hov-img-zoom pos-relative m-b-30">-->
-<!--						<img src="{% static 'images/banner-05.webp' %}" alt="IMG-BENNER">-->
-<!--						<div class="block1-wrapbtn w-size2">-->
-<!--							<a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">-->
-<!--								Sunglasses-->
-<!--							</a>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--					-->
-<!--				</div>-->
-
-
-
-
-			</div>
-		</div>
-	</section>
-
-	<!-- New Product -->
-	<style>
-		.newproduct{
-			margin-bottom: 2px;
-			padding-bottom: 2px;
-		}
-	</style>
-	<section class="newproduct bgwhite p-t-45 p-b-105">
-		<div class="container">
-			<div class="sec-title p-b-60">
-				<h3 class="m-text5 t-center">
-					Featured Products
-				</h3>
-			</div>
-
-			<!-- Slide2 -->
-			<div class="wrap-slick2">
-				<div class="slick2">
-
-					{% for item in object_list %}
-					
-					<div class="item-slick2 p-l-15 p-r-15">
-						<!-- Block2 -->
-						<div class="block2">
-							
-							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-label{{item.get_label_display}}">
-								<a href="{{item.get_absolute_url}}">
-								<img src="{{ item.image.url }}" alt="IMG-PRODUCT" 
-								style="height: 370px; width:100%; "></a>
-							   
-								{% if item.discount_price %}
-								<div class="discount-badge">
-									{{ item.get_discount_percent }}% OFF
-								</div>
-								{% endif %}
-							   
-
-								<!-- <div class="block2-overlay trans-0-4">
-									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-										<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-									</a>
-	
-									
-								</div> -->
-							</div>
-							
-
-							<div class="block2-txt p-t-20">
-								<a href="{{item.get_absolute_url}}" class="block2-name dis-block s-text3 p-b-5" style="color: black;">
-									{{ item.title }}
-								</a>
-
-								{% if item.discount_price %}
-								<span class="block2-oldprice m-text7 p-r-5" style="color: black;">
-									₹{{ item.price }}
-								</span>
-
-								<span class="block2-newprice m-text8 p-r-5">
-									₹{{ item.discount_price }}
-								</span>
-								{% else %}
-								<span class="block2-price m-text6 p-r-5" style="color: black;">
-									₹{{ item.price }}
-								</span>
-								{% endif %}
-								
-								
-
-								
-							</div>
-							
-						</div>
-					</div>
-				
-					{% endfor %}
-
-					
-				
-				</div>
-			</div>
-
-		</div>
-	</section>
-
-	<!-- ------------------Banner2  start ------------------------>
-	<style>
-		.banner2{
-			background-color: #fff;
-			margin-right: 1rem;
-			margin-left: 1rem;
-			margin-bottom: 0 !important;
-			padding-bottom: 0 !important;
-		}
-
-		.ban_img{
-			height: 680px;
-			width: 100%;
-		}
-		.ban5_img{
-			height: 580px;
-			width: 100%;
-		}
-
-		.btn-light {
-			color: #000;
-			background-color: #fff;
-			border-color: #fff;
-			border-radius: 20px;
-		}
-		.wrap-btn-slide1 a:hover{
-			background-color: whitesmoke;
-			color: #000 !important;
-			opacity: 0.7;
-	
-		}
-	</style>
-	<section class="banner2 bg5 p-t-55 p-b-55">
-		<h4 style="font-weight: 500;">Season's Essentials</h4>
-		<div class="">
-			<div class="row">
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
-						<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/c85699cb-2813-4acd-8822-c3344fe07f17/nike-just-do-it.jpg" alt="IMG-BANNER" class="ban_img">
-
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-							<span class="m-text9 p-t-45 fs-20-sm">
-								Bold, Brights Looks
-							</span>
-
-							<br>
-							
-
-								<div class="wrap-btn-slide1 w-size1 animated" data-appear="slideInUp">
-						
-							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite  trans-0-4">
-								Shop Now
-							</a>
-						</div>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
-						<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/3d8a771b-0fd0-49b0-a9ad-1c688b192bf9/nike-just-do-it.jpg"  alt="IMG-BANNER" class="ban_img">
-
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-							<span class="m-text9 p-t-45 fs-20-sm">
-								Stay Active
-							</span>
-
-							<br>
-							
-
-								<div class="wrap-btn-slide1 w-size1 animated" data-appear="slideInUp">
-						
-							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite  trans-0-4">
-								Shop Now
-							</a>
-						</div>
-
-						</div>
-					</div>
-				</div>
-
-			
-			</div>
-		</div>
-	</section>
-	<!-- ------------------Banner2  start ------------------------>
-
-	<!-- ------------------Banner4  start ------------------------>
-<!-- Slide1 -->
-
-<style>
-	.slide1 button:hover{
-		background-color: white !important;
-		color: black;
-	}
-</style>
-<br><br>
-<section class="slide1">
-
-	
-	<div class="wrap-slick2">
-		<div class="slick1">
-			
-		
-	
-			
-
-			<div class="item-slick1 item2-slick1" style="background-image: url('https://static.nike.com/a/images/f_auto/dpr_2.0/w_1407,c_limit/a01665bf-08e7-4d5d-8fb6-841382e3f900/nike-just-do-it.jpg');">
-					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
-						<span class="caption1-slide1 m-text1 t-center   m-b-15" data-appear="rollIn">
-							Nike ZoomX Vaporfly NEXT%
-						</span>
-						<h2 class="caption2-slide1 xl-text1 t-center   m-b-37" data-appear="lightSpeedIn">
-							FAST IS BACK
-						</h2>
-						<div class="wrap-btn-slide1 w-size1 " data-appear="slideInUp">
-							
-							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
-								Shop Now
-							</a>
-						</div>
-					</div>
-				</div>
-
-		</div>
-	</div>
-</section>
-
-<!-- ------------------Banner4  end ------------------------>
-
-	<!-- ------------------Banner3  start ------------------------>
-
-	<section class="banner2 bg5 p-t-55 p-b-55">
-		<h4 style="font-weight: 500;">Training's Essentials</h4>
-		<div class="">
-			<div class="row">
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
-						<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/24fb4f53-ba07-46fa-934e-bcb35b0cc021/nike-just-do-it.jpg" alt="IMG-BANNER" class="ban_img">
-
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-							<span class="m-text9 p-t-45 fs-20-sm">
-								SuperRe Go
-							</span>
-
-							<br>
-							
-
-								<div class="wrap-btn-slide1 w-size1 animated" data-appear="slideInUp">
-						
-							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite  trans-0-4">
-								Shop Now
-							</a>
-						</div>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
-						<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/f33275db-0cbb-406a-8ac9-430ff07433b7/nike-just-do-it.jpg"  alt="IMG-BANNER" class="ban_img">
-
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-							<span class="m-text9 p-t-45 fs-20-sm" style="color: black;">
-								Bras and Leggings
-							</span>
-
-							<br>
-							
-
-								<div class="wrap-btn-slide2 w-size1 animated" data-appear="slideInUp">
-						
-							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2  trans-0-4" style="background-color: black; color:white;">
-								Shop Now
-							</a>
-						</div>
-
-						</div>
-					</div>
-				</div>
-
-			
-			</div>
-		</div>
-	</section>
-	<!-- ------------------Banner3  end ------------------------>
-
-	<!-- ------------------Banner5  start ------------------------>
-
-	<section class="banner2 bg5 p-t-55 p-b-55">
-		<h4 style="font-weight: 500;">More Products</h4>
-		<div class="">
-			<div class="row">
-				<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
-						<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_573,c_limit/0bafb728-2ae2-416f-bb18-5935801c8071/nike-just-do-it.png" alt="IMG-BANNER" class="ban5_img">
-
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-						
-							
-
-							<br>
-							
-
-								<div class="wrap-btn-slide1 w-size1 animated" data-appear="slideInUp">
-						
-							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite  trans-0-4">
-								Men's
-							</a>
-						</div>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
-						<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_573,c_limit/2c8754ce-6287-4e77-a198-1ad483fba257/nike-just-do-it.png" alt="IMG-BANNER" class="ban5_img">
-
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-
-							<br>
-							
-
-								<div class="wrap-btn-slide1 w-size1 animated" data-appear="slideInUp">
-						
-							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite  trans-0-4">
-								Women's
-							</a>
-						</div>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
-						<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_573,c_limit/414db494-7ebc-4d53-bbff-58d50b380a24/nike-just-do-it.png" alt="IMG-BANNER" class="ban5_img">
-
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-
-							<br>
-							
-
-								<div class="wrap-btn-slide1 w-size1 animated" data-appear="slideInUp">
-						
-							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite  trans-0-4">
-								Kids'
-							</a>
-						</div>
-
-						</div>
-					</div>
-				</div>
-			
-			</div>
-		</div>
-	</section>
-	<!-- ------------------Banner2  start ------------------------>
-
-
-	
-	
-
-	<!-- Shipping -->
-	<section class="shipping bgwhite p-t-62 p-b-46">
-		<div class="flex-w p-l-15 p-r-15">
-			<div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 respon1">
-				<h4 class="m-text12 t-center">
-					Free Delivery Worldwide
-				</h4>
-
-				<a href="#" class="s-text11 t-center">
-					Click here for more info
-				</a>
-			</div>
-
-			<div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 bo2 respon2">
-				<h4 class="m-text12 t-center">
-					30 Days Return
-				</h4>
-
-				<span class="s-text11 t-center">
-					Simply return it within 30 days for an exchange.
-				</span>
-			</div>
-
-			<div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 respon1">
-				<h4 class="m-text12 t-center">
-					Store Opening
-				</h4>
-
-				<span class="s-text11 t-center">
-					Shop open from Monday to Sunday
-				</span>
-			</div>
-		</div>
-	</section>
-
-
-
-
-	
-
-	{% endblock content %}
-
-
-	
+    <!-- 2. Service Highlights Section -->
+    <section class="service-highlight reveal-anim delay-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="service-card" style="text-align: left;">
+                        <i class="fas fa-shipping-fast" style="font-size: 24px; margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 18px; font-weight: 800; color: #1e293b;">Priority Delivery</h4>
+                        <p style="font-size: 13px; color: #64748b;">Fastest shipping across India</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="service-card" style="text-align: left;">
+                        <i class="fas fa-certificate" style="font-size: 24px; margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 18px; font-weight: 800; color: #1e293b;">100% Original</h4>
+                        <p style="font-size: 13px; color: #64748b;">Direct from official brands</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="service-card" style="text-align: left;">
+                        <i class="fas fa-exchange-alt" style="font-size: 24px; margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 18px; font-weight: 800; color: #1e293b;">Easy Exchange</h4>
+                        <p style="font-size: 13px; color: #64748b;">Simple 10-day return policy</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="service-card" style="text-align: left;">
+                        <i class="fas fa-crown" style="font-size: 24px; margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 18px; font-weight: 800; color: #1e293b;">Member Rewards</h4>
+                        <p style="font-size: 13px; color: #64748b;">Earn points on every purchase</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Curated Collections (Category Grid) -->
+    <section class="modern-cat-section reveal-anim delay-2">
+        <div class="container">
+            <div class="sec-title p-b-50">
+                <h3 class="t-center">Shop by Collection</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="cat-card">
+                        <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?q=80&w=800" alt="Mens Wear">
+                        <div class="cat-overlay">
+                            <h3>Men's Wear</h3>
+                            <a href="/category/mens-wear/" class="btn-shop-white">Explore More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cat-card">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800" alt="Womens Wear">
+                        <div class="cat-overlay">
+                            <h3>Women's Wear</h3>
+                            <a href="/category/womens-wear/" class="btn-shop-white">Explore More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cat-card">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800" alt="Accessories">
+                        <div class="cat-overlay">
+                            <h3>Accessories</h3>
+                            <a href="/category/accessories/" class="btn-shop-white">Explore More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Trending Arrivals Section -->
+    <section class="product-grid-section bgwhite reveal-anim delay-3">
+        <div class="container">
+            <div class="sec-title p-b-50">
+                <h3 class="t-center" style="font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 900; color: #1e293b;">Trending Arrivals</h3>
+                <div style="width: 60px; height: 3px; background: var(--primary-blue); margin: 15px auto;"></div>
+            </div>
+            <div class="row">
+                {% for item in object_list|slice:":8" %}
+                <div class="col-sm-6 col-md-4 col-lg-3 p-b-40">
+                    <div class="premium-product-card" style="border: none; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; height: 100%; transition: all 0.3s;">
+                        <div class="product-img-wrapper" style="border-radius: 0; margin-bottom: 15px; position: relative; overflow: hidden;">
+                            <a href="{{item.get_absolute_url}}">
+                                <img src="{{ item.image.url }}" alt="{{ item.title }}" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; transition: transform 0.8s;">
+                            </a>
+                            {% if item.discount_price %}
+                            <div class="featured-label" style="position: absolute; top: 10px; left: 10px; background: #2874f0; color: white; padding: 3px 10px; font-size: 10px; font-weight: 800; border-radius: 4px;">{{ item.get_discount_percent }}% OFF</div>
+                            {% endif %}
+                        </div>
+                        <div class="product-info p-l-15 p-r-15 p-b-20">
+                            <a href="{{item.get_absolute_url}}" class="s-text3 p-b-5" style="font-weight: 600; color: #334155; display: block; height: 40px; overflow: hidden; line-height: 1.3; font-size: 14px;">
+                                {{ item.title }}
+                            </a>
+                            <div class="price-box p-t-5">
+                                {% if item.discount_price %}
+                                <span class="m-text7 p-r-5" style="text-decoration: line-through; color: #94a3b8; font-size: 13px;">₹{{ item.price }}</span>
+                                <span class="m-text8" style="color: #ef4444; font-weight: 800; font-size: 16px;">₹{{ item.discount_price }}</span>
+                                {% else %}
+                                <span class="m-text6" style="font-weight: 800; font-size: 16px; color: #1e293b;">₹{{ item.price }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="flex-c-m p-t-10">
+                <a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite bo4 hov1 trans-0-4" style="width: 180px; border: 2px solid #2874f0; color: #2874f0; font-weight: 700;">
+                    View All
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Full Width Promotional Banner -->
+    <section class="promo-banner-full reveal-anim" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2000');">
+        <div class="promo-content">
+            <h4 style="color: var(--primary-blue); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Season Finale</h4>
+            <h2 style="font-family: 'Playfair Display', serif; font-weight: 900; font-size: 48px; margin-bottom: 20px;">Mega Discount Sale</h2>
+            <p style="color: #64748b; font-size: 18px; margin-bottom: 30px;">Upgrade your wardrobe with premium styles at unbeatable prices. Limited time offer only!</p>
+            <a href="/sale/" class="btn-subscribe" style="text-decoration: none;">Shop Sale - Up to 70% Off</a>
+        </div>
+    </section>
+
+    <!-- 6. Customer Testimonials Section -->
+    <section class="testimonial-section reveal-anim" style="padding: 100px 0; background: #f8fafc;">
+        <div class="container">
+            <div class="sec-title p-b-60">
+                <h3 class="t-center" style="font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 900; color: #1e293b;">What Our Customers Say</h3>
+                <div style="width: 60px; height: 3px; background: var(--primary-blue); margin: 15px auto;"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 p-b-30">
+                    <div style="background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); height: 100%; transition: all 0.3s; border: 1px solid #f1f5f9;">
+                        <div style="color: #facc15; margin-bottom: 20px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; color: #475569; line-height: 1.8; margin-bottom: 25px;">"The quality of the shirts is absolutely amazing. The fit is perfect and the delivery was faster than expected. Highly recommended!"</p>
+                        <div class="flex-m">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #e2e8f0; margin-right: 15px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--primary-blue);">AK</div>
+                            <div>
+                                <h5 style="font-weight: 800; font-size: 16px; color: #1e293b;">Ankit Kumar</h5>
+                                <span style="font-size: 12px; color: #94a3b8;">Verified Buyer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 p-b-30">
+                    <div style="background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); height: 100%; transition: all 0.3s; border: 1px solid #f1f5f9;">
+                        <div style="color: #facc15; margin-bottom: 20px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; color: #475569; line-height: 1.8; margin-bottom: 25px;">"I love the collection! TrendyCart has become my go-to place for all my fashion needs. The returns policy is so easy and hassle-free."</p>
+                        <div class="flex-m">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #e2e8f0; margin-right: 15px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--primary-blue);">PS</div>
+                            <div>
+                                <h5 style="font-weight: 800; font-size: 16px; color: #1e293b;">Priya Singh</h5>
+                                <span style="font-size: 12px; color: #94a3b8;">Verified Buyer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 p-b-30">
+                    <div style="background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); height: 100%; transition: all 0.3s; border: 1px solid #f1f5f9;">
+                        <div style="color: #facc15; margin-bottom: 20px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p style="font-style: italic; color: #475569; line-height: 1.8; margin-bottom: 25px;">"Excellent customer service. I had an issue with the size, and they exchanged it within 2 days. The member rewards are also great!"</p>
+                        <div class="flex-m">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #e2e8f0; margin-right: 15px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--primary-blue);">RV</div>
+                            <div>
+                                <h5 style="font-weight: 800; font-size: 16px; color: #1e293b;">Rohan Verma</h5>
+                                <span style="font-size: 12px; color: #94a3b8;">Verified Buyer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Scroll Reveal Animation Script
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-anim').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+{% endblock content %}

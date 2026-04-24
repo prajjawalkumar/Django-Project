@@ -13,7 +13,8 @@ register = template.Library()
 SALE_CATEGORY_SLUGS = [
     'top-deals', 'mens-sale', 'womens-sale', 'footwear-sale', 
     'accesories-sale', 'summer-sale', 'combo-offers', 
-    'best-sellers', 'under-499', 'under-699', 'winter-sale'
+    'best-sellers', 'under-499', 'under-699', 'winter-sale',
+    'mega-discount', 'flash-sale', 'clearance-sale', 'bogo'
 ]
 
 @register.simple_tag

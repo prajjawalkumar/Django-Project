@@ -1,12 +1,12 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  {% include "header.html" %}
+{% include "header.html" %}
 
-  <title>{% block head_title %}{% endblock %}</title>
-  {% block extra_head %} {% endblock %}
-  <style type="text/css">
-    .form-control {
+<title>{% block head_title %}{% endblock %}</title>
+{% block extra_head %} {% endblock %}
+<style type="text/css">
+  .form-control {
     display: block;
     width: 100%;
     height: calc(1.5em + .75rem + 2px);
@@ -19,43 +19,102 @@
     background-clip: padding-box;
     border: 1px solid #ced4da !important;
     border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-  </style>
-  <body class="animsition">
-    {% include "nav.html"%}
-    <div class="mt-2">
-      {% if messages %} {% for message in messages %}
-      <div
-        class="alert alert-{{ message.tags }} alert-dismissible fade show"
-        role="alert"
-      >
-        {{ message }}
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
 
-        <button
-          type="button"
-          class="close"
-          data-dismiss="alert"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+  /* Modern Unified Hero Banner */
+  .modern-hero-section {
+    background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+    /* Deep Midnight Blue */
+    position: relative;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.3);
+  }
+
+  .modern-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Subtle vignette effect */
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(20, 30, 48, 0.5) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .modern-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    position: relative;
+  }
+
+  .modern-hero-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 600px;
+    line-height: 1.6;
+    z-index: 1;
+    position: relative;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .modern-hero-divider {
+    width: 80px;
+    height: 4px;
+    background: #e65540;
+    /* Fashion red accent */
+    margin: 15px 0 20px 0;
+    border-radius: 2px;
+    z-index: 1;
+    position: relative;
+  }
+</style>
+
+<body class="animsition">
+  {% include "nav.html"%}
+  <div class="mt-2">
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+  </div>
 
-    {% endfor %} 
-    {% endif %} 
+  {% endfor %}
+  {% endif %}
 
-    {% block content %} 
-    {% endblock content %}
+  {% block content %}
+  {% endblock content %}
 
-     {% block extra_body %} 
-     {% endblock %} 
+  {% block extra_body %}
+  {% endblock %}
 
-    {% include "footer.html"%} 
-    {% include "script.html"%}
+  {% include "footer.html"%}
+  {% include "script.html"%}
 
-    {% block extra_scripts %}
-    {% endblock extra_scripts %}
-  </body>
+  {% block extra_scripts %}
+  {% endblock extra_scripts %}
+</body>
+
 </html>

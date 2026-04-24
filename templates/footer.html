@@ -1,108 +1,177 @@
 {% load static %}
-<!-- ------------------------------footer sub end---------------------------------- -->
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css?family=Abel|Lato|Open+Sans&display=swap" rel="stylesheet">
+<!-- Modern Premium Footer -->
 <style>
-  
-    /* footer */
-#footer-main{
-	background: #000;
-	color: white;
-	font-size: 0.8rem;
-	padding: 2.5rem 0;
-    font-family: 'Lato', sans-serif;
-}
-
-#footer-main a{
-	font-size: 14px;
-	display: block;
-	margin: 0.3rem;
-	color: grey;
-}
-
-#footer-main a:hover{
-	font-weight: bold;
-	color: white;
-}
-
-#footer-main h6 a{
-    color: white;
-
-    
-}
-
-
-
-#footer-main hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: 0;
-    border-top: 1px solid white;
-}
-
-#footer-main img{
-	margin-right: 0.6rem;
-}
+    .footer-section {
+        background: #0a0a0a;
+        color: #fff;
+        padding: 80px 0 40px;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+        gap: 50px;
+        margin-bottom: 60px;
+    }
+    .footer-brand h4 {
+        font-family: 'Playfair Display', serif;
+        font-weight: 900;
+        letter-spacing: 2px;
+        font-size: 28px;
+        margin-bottom: 25px;
+        color: #fff;
+    }
+    .footer-brand p {
+        color: #888;
+        line-height: 1.8;
+        font-size: 14px;
+        max-width: 300px;
+    }
+    .footer-col h5 {
+        font-weight: 700;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 30px;
+        color: #fff;
+        position: relative;
+    }
+    .footer-col h5::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 30px;
+        height: 2px;
+        background: #e65540;
+    }
+    .footer-links {
+        list-style: none;
+        padding: 0;
+    }
+    .footer-links li {
+        margin-bottom: 15px;
+    }
+    .footer-links a {
+        color: #888;
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.3s;
+        display: inline-block;
+    }
+    .footer-links a:hover {
+        color: #fff;
+        transform: translateX(5px);
+    }
+    .footer-social {
+        display: flex;
+        gap: 15px;
+        margin-top: 25px;
+    }
+    .social-btn {
+        width: 40px;
+        height: 40px;
+        background: #1a1a1a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: #fff;
+        transition: all 0.3s;
+        text-decoration: none !important;
+    }
+    .social-btn:hover {
+        background: #e65540;
+        transform: translateY(-5px);
+    }
+    .footer-bottom {
+        border-top: 1px solid #1a1a1a;
+        padding-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .copyright {
+        color: #555;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+    }
+    .admin-link {
+        color: #444;
+        font-size: 12px;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    .admin-link:hover {
+        color: #888;
+    }
+    @media (max-width: 991px) {
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 767px) {
+        .footer-grid { grid-template-columns: 1fr; }
+        .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+    }
 </style>
 
-<footer id="footer-main">
+<footer class="footer-section">
     <div class="container">
-      <div class="row">
-        <div class="col-sm-3">
-            <br>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h4>TRENDY CART</h4>
+                <p>Discover the latest trends in fashion and accessories. High quality products curated for your premium lifestyle.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
 
-            <h6 class="mt-3"><a href="">FIND A STORE</a></h6>
-            <h6 class="mt-3"><a href="">SIGN UP FOR EMAIL</a></h6>
-            <h6 class="mt-3"><a href="">BECOME A MEMBER</h6>
-            
-            <h6 class="mt-3"><a href="/admin/">ADMIN LOGIN</a></h6>
-           
-        </div>
-        <div class="col-sm-3">
-            <h6 class="mt-3"><a href="">GET HELP</a></h6>
-            <a href="">Order Status</a>
-            <a href="">Shipping and Delivery</a>
-            <a href="">Returns</a>
-            <a href="">Payment Options</a>
-            <a href="">Contact Us</a>
-        </div>
-        <div class="col-sm-3">
-            <h6 class="mt-3"><a href="">ABOUT DJANGO</a></h6>
-            <a href="">News</a>
-            <a href="">Careers</a>
-            <a href="">Investors</a>
-            <a href="">Sustainability</a>
-            
-            
+            <div class="footer-col">
+                <h5>Shop</h5>
+                <ul class="footer-links">
+                    <li><a href="/shop/">All Collections</a></li>
+                    <li><a href="/category/mens-wear/">Men's Wear</a></li>
+                    <li><a href="/category/womens-wear/">Women's Wear</a></li>
+                    <li><a href="/category/top-deals/">Sale & Offers</a></li>
+                </ul>
+            </div>
 
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Order Status</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                </ul>
+            </div>
 
+            <div class="footer-col">
+                <h5>Download Our App</h5>
+                <p style="margin-bottom: 20px;">Experience shopping on the go with our mobile app.</p>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="#" style="background: #1a1a1a; padding: 10px 20px; border-radius: 8px; color: #fff; display: flex; align-items: center; gap: 10px; text-decoration: none;">
+                        <i class="fab fa-apple fa-lg"></i>
+                        <div style="font-size: 10px; line-height: 1.2;">Download on the<br><span style="font-size: 14px; font-weight: 700;">App Store</span></div>
+                    </a>
+                    <a href="#" style="background: #1a1a1a; padding: 10px 20px; border-radius: 8px; color: #fff; display: flex; align-items: center; gap: 10px; text-decoration: none;">
+                        <i class="fab fa-google-play fa-lg"></i>
+                        <div style="font-size: 10px; line-height: 1.2;">Get it on<br><span style="font-size: 14px; font-weight: 700;">Google Play</span></div>
+                    </a>
+                </div>
+            </div>
+        </div>
 
+        <div class="footer-bottom">
+            <div class="copyright">
+                &copy; 2026 Developed by <strong>@Prajjawal....</strong>. All rights reserved.
+            </div>
+            <div>
+                <a href="/admin/" class="admin-link">Staff Login</a>
+            </div>
         </div>
-        <div class="col-sm-3">
-          <a href="">Voice of Customer</a>
-          <a href="">Contacts by Branch</a>
-          <a href="">Ethics Reporting</a>
-          <a href="">Careers</a>
-
-          <br><br>
-          <a href="">Business Inquiry</a>
-          <br>
-          <a href="" class="ico"><i class="fab fa-apple fa-2x"></i> Apple Store</a>
-          <a href="" class="ico"><i class="fab fa-google-play fa-2x"></i> Google Play</a>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-sm-6">
-          
-        </div>
-        <div class="col-sm-6">
-          
-        </div>
-        <hr>
-        <a href="https://github.com/zinmyoswe" style="margin-left: 1rem">Privacy Policy | @zinmyoswe 2019-2020</a>
-      </div>
     </div>
-  </footer>
-<!-- ------------------------------footer end---------------------------------- -->
+</footer>
 

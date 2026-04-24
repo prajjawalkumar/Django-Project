@@ -26,7 +26,10 @@ class SearchView(ListView):
             return Item.objects.filter(
                 Q(title__icontains=query) |
                 Q(description_long__icontains=query) |
-                Q(description_short__icontains=query)
+                Q(description_short__icontains=query) |
+                Q(category__title__icontains=query) |
+                Q(category__parent__title__icontains=query),
+                is_active=True
             ).distinct()
         return Item.objects.filter(is_active=True)
 
@@ -123,8 +126,10 @@ class PaymentView(View):
 
 
 class HomeView(ListView):
+    model = Item
+    paginate_by = 12
     template_name = "index.html"
-    queryset = Item.objects.filter(is_active=True)
+    queryset = Item.objects.filter(is_active=True).order_by('?')
     context_object_name = 'items'
 
 
@@ -187,11 +192,125 @@ class ItemDetailView(DetailView):
 
 class CategoryView(View):
     def get(self, *args, **kwargs):
-        category = Category.objects.get(slug=self.kwargs['slug'])
-        # Get products from the category and all its subcategories
-        children = Category.objects.filter(parent=category)
-        categories = [category] + list(children)
-        item_list = Item.objects.filter(category__in=categories, is_active=True)
+        slug = self.kwargs['slug']
+        
+        # Define virtual slugs that don't need a database entry
+        virtual_slugs = [
+            'top-deals', 'mens-sale', 'womens-sale', 'footwear-sale', 
+            'accesories-sale', 'summer-sale', 'combo-offers', 
+            'best-sellers', 'under-499', 'under-699', 'winter-sale',
+            'mega-discount', 'flash-sale', 'clearance-sale', 'bogo'
+        ]
+        
+        if slug in virtual_slugs:
+            category = type('MockCategory', (), {
+                'title': slug.replace('-', ' ').title(),
+                'description': f"Special deals for {slug.replace('-', ' ')}",
+                'image': None,
+                'slug': slug,
+                '__str__': lambda self: self.title
+            })()
+            children = []
+        else:
+            category = Category.objects.get(slug=slug)
+            children = Category.objects.filter(parent=category)
+        
+        if slug == 'mens-sale':
+            try:
+                base = Category.objects.get(slug='mens-wear')
+                cats = [base] + list(Category.objects.filter(parent=base))
+                item_list = Item.objects.filter(category__in=cats, is_active=True, discount_price__isnull=False)
+            except Category.DoesNotExist:
+                item_list = Item.objects.filter(category__in=[category]+list(children), is_active=True)
+        elif slug == 'womens-sale':
+            try:
+                base = Category.objects.get(slug='womens-wear')
+                cats = [base] + list(Category.objects.filter(parent=base))
+                item_list = Item.objects.filter(category__in=cats, is_active=True, discount_price__isnull=False)
+            except Category.DoesNotExist:
+                item_list = Item.objects.filter(category__in=[category]+list(children), is_active=True)
+        elif slug in ['top-deals', 'summer-sale', 'best-sellers']:
+            item_ids = []
+            def get_n_items(slug_name, n):
+                try:
+                    base = Category.objects.get(slug=slug_name)
+                    cats = [base] + list(Category.objects.filter(parent=base))
+                    return list(Item.objects.filter(category__in=cats, is_active=True, discount_price__isnull=False).values_list('id', flat=True).order_by('?')[:n])
+                except Category.DoesNotExist:
+                    return []
+            
+            item_ids += get_n_items('mens-wear', 5)
+            item_ids += get_n_items('womens-wear', 5)
+            item_ids += get_n_items('footwear', 5)
+            
+            remaining_needed = 30 - len(item_ids)
+            if remaining_needed > 0:
+                mixed_ids = list(Item.objects.filter(is_active=True, discount_price__isnull=False).exclude(id__in=item_ids).values_list('id', flat=True).order_by('?')[:remaining_needed])
+                item_ids += mixed_ids
+            
+            item_list = Item.objects.filter(id__in=item_ids).order_by('?')
+            
+        elif slug == 'combo-offers':
+            from django.db.models import Q
+            combo_items = Item.objects.filter(
+                Q(title__icontains='pair') | 
+                Q(description_short__icontains='pair') | 
+                Q(description_long__icontains='pair') |
+                Q(title__icontains='combo') | 
+                Q(title__icontains='set'),
+                is_active=True
+            )
+            item_ids = list(combo_items.values_list('id', flat=True))
+            
+            remaining = 30 - len(item_ids)
+            if remaining > 0:
+                mixed = list(Item.objects.filter(is_active=True, discount_price__isnull=False).exclude(id__in=item_ids).values_list('id', flat=True).order_by('?')[:remaining])
+                item_ids += mixed
+            item_list = Item.objects.filter(id__in=item_ids).order_by('?')
+            
+        elif slug == 'under-499':
+            from django.db.models import Q
+            item_list = Item.objects.filter(
+                Q(discount_price__lte=499) | Q(discount_price__isnull=True, price__lte=499),
+                is_active=True
+            ).order_by('?')[:30]
+            
+        elif slug == 'under-699':
+            from django.db.models import Q
+            item_list = Item.objects.filter(
+                Q(discount_price__lte=699) | Q(discount_price__isnull=True, price__lte=699),
+                is_active=True
+            ).order_by('?')[:30]
+        elif slug in ['mega-discount', 'clearance-sale']:
+            item_list = Item.objects.filter(is_active=True, discount_price__isnull=False).order_by('?')[:30]
+        elif slug == 'flash-sale':
+            def get_n_items_ids(slug_name, n):
+                try:
+                    base = Category.objects.get(slug=slug_name)
+                    cats = [base] + list(Category.objects.filter(parent=base))
+                    return list(Item.objects.filter(category__in=cats, is_active=True, discount_price__isnull=False).values_list('id', flat=True).order_by('?')[:n])
+                except Category.DoesNotExist:
+                    return []
+            item_ids = get_n_items_ids('womens-wear', 20) + get_n_items_ids('mens-wear', 10)
+            remaining = 30 - len(item_ids)
+            if remaining > 0:
+                mixed = list(Item.objects.filter(is_active=True, discount_price__isnull=False).exclude(id__in=item_ids).values_list('id', flat=True).order_by('?')[:remaining])
+                item_ids += mixed
+            item_list = Item.objects.filter(id__in=item_ids).order_by('?')
+        elif slug == 'bogo':
+            from django.db.models import Q
+            item_ids = list(Item.objects.filter(
+                Q(title__icontains='pair') | Q(description_short__icontains='pair') | Q(title__icontains='combo') | Q(title__icontains='set'),
+                is_active=True
+            ).values_list('id', flat=True)[:30])
+            remaining = 30 - len(item_ids)
+            if remaining > 0:
+                mixed = list(Item.objects.filter(is_active=True, discount_price__isnull=False).exclude(id__in=item_ids).values_list('id', flat=True).order_by('?')[:remaining])
+                item_ids += mixed
+            item_list = Item.objects.filter(id__in=item_ids).order_by('?')
+        else:
+            categories = [category] + list(children)
+            item_list = Item.objects.filter(category__in=categories, is_active=True)
 
         # Filtering by price
         min_price = self.request.GET.get('min_price')
@@ -210,8 +329,16 @@ class CategoryView(View):
         elif sort == 'popularity':
             item_list = item_list.order_by('-label') # Assuming label relates to popularity
 
+        # Pagination
+        from django.core.paginator import Paginator
+        paginator = Paginator(item_list, 12) # 3 rows of 4 items = 12
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         context = {
-            'object_list': item_list,
+            'object_list': page_obj,
+            'page_obj': page_obj,
+            'is_paginated': page_obj.has_other_pages(),
             'category_title': category,
             'category_description': category.description,
             'category_image': category.image,
@@ -230,7 +357,7 @@ class AboutView(View):
 class SaleView(ListView):
     model = Item
     template_name = "sale.html"
-    paginate_by = 12
+    paginate_by = 48
 
     def get_queryset(self):
         # Filter items that have a discount_price set
@@ -242,12 +369,15 @@ class SaleView(ListView):
             item_list = item_list.order_by('price')
         elif sort == 'price_high':
             item_list = item_list.order_by('-price')
+        else:
+            item_list = item_list.order_by('?')
             
         return item_list
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_sort'] = self.request.GET.get('sort')
+        context['banner_items'] = list(Item.objects.filter(is_active=True).exclude(image='').order_by('?')[:4])
         return context
 
 

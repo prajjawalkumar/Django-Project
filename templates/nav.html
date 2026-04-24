@@ -25,13 +25,6 @@
     .item-menu-mobile.active-menu > a {
         color: #ff0000 !important;
     }
-    /* Override sale-noti if needed */
-    li.sale-noti > a {
-        color: #000 !important;
-    }
-    li.active-menu.sale-noti > a {
-        color: #ff0000 !important;
-    }
 	@keyframes wave {
 		0% { transform: rotate( 0.0deg) }
 		10% { transform: rotate(14.0deg) }
@@ -52,23 +45,251 @@
         font-weight: 600;
         font-size: 14px;
     }
+
+    /* Premium Logo Styling */
+    .logo-container {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .logo-container:hover {
+        transform: scale(1.05);
+    }
+
+    .logo-text {
+        font-family: 'Poppins', sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        color: #1e293b;
+        letter-spacing: -1px;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-accent {
+        color: #2874f0;
+        font-weight: 300;
+    }
+
+    .logo-dot {
+        width: 8px;
+        height: 8px;
+        background: #2874f0;
+        border-radius: 50%;
+        margin-left: 2px;
+        display: inline-block;
+        animation: pulse-blue 2s infinite;
+    }
+
+    @keyframes pulse-blue {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(40, 116, 240, 0.7); }
+        70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(40, 116, 240, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(40, 116, 240, 0); }
+    }
+
+    /* Enhanced Search Bar */
+    .premium-search {
+        display: flex;
+        background: #f1f5f9;
+        border-radius: 30px;
+        padding: 5px 5px 5px 20px;
+        width: 350px;
+        transition: all 0.3s;
+        border: 2px solid transparent;
+    }
+
+    .premium-search:focus-within {
+        background: white;
+        border-color: #2874f0;
+        box-shadow: 0 4px 12px rgba(40,116,240,0.1);
+    }
+
+    /* Menu Link Glow */
+    .main_menu > li > a {
+        position: relative;
+        font-weight: 600 !important;
+    }
+
+    .main_menu > li > a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #2874f0;
+        transition: width 0.3s;
+    }
+
+    .main_menu > li:hover > a::after {
+        width: 100%;
+    }
+
+    .sale-badge {
+        background: #ff4757;
+        color: white;
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 10px;
+        position: absolute;
+        top: -15px;
+        right: -10px;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    /* Cute Track Order Modal */
+    .track-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(8px);
+        display: none !important; /* Force hide by default */
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .track-modal-overlay.show {
+        display: flex !important;
+        opacity: 1;
+    }
+
+    .track-modal {
+        background: white;
+        width: 90%;
+        max-width: 400px;
+        border-radius: 30px;
+        padding: 40px;
+        position: relative;
+        transform: translateY(30px);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .track-modal-overlay.show .track-modal {
+        transform: translateY(0);
+    }
+
+    .track-modal-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .track-modal-header i {
+        font-size: 50px;
+        color: #2874f0;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .track-modal-header h3 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        color: #1e293b;
+        font-size: 24px;
+    }
+
+    .track-input-group {
+        margin-bottom: 20px;
+    }
+
+    .track-input-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        color: #64748b;
+        margin-bottom: 8px;
+        padding-left: 5px;
+    }
+
+    .track-input {
+        width: 100%;
+        height: 50px;
+        background: #f1f5f9;
+        border: 2px solid transparent;
+        border-radius: 15px;
+        padding: 0 20px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .track-input:focus {
+        background: white;
+        border-color: #2874f0;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(40,116,240,0.1);
+    }
+
+    .btn-track-submit {
+        width: 100%;
+        height: 55px;
+        background: #2874f0;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-weight: 800;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+    }
+
+    .btn-track-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(40,116,240,0.3);
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 35px;
+        height: 35px;
+        background: #f1f5f9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #64748b;
+        transition: all 0.3s;
+    }
+
+    .modal-close:hover {
+        background: #ef4444;
+        color: white;
+        transform: rotate(90deg);
+    }
 </style>
+
 <!-- Header -->
 <header class="header1">
 		<!-- Header desktop -->
 		<div class="container-menu-header">
 			<div class="topbar">
 				<div class="topbar-social">
-					<a href="#" class="topbar-social-item fab fa-facebook"></a>
-					<a href="#" class="topbar-social-item fab fa-instagram"></a>
-					<a href="#" class="topbar-social-item fab fa-pinterest-p"></a>
-					<a href="#" class="topbar-social-item fab fa-twitter"></a>
-					<a href="#" class="topbar-social-item fab fa-youtube"></a>
+					<a href="javascript:void(0)" onclick="openTrackModal()" class="topbar-social-item" style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-right: 20px; transition: color 0.3s;">
+                        <i class="fas fa-truck m-r-5"></i> Track Order
+                    </a>
+					<a href="#" class="topbar-social-item" style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-right: 20px; transition: color 0.3s;">
+                        <i class="fas fa-headset m-r-5"></i> Support: +91 95084 452453
+                    </a>
+					<a href="#" class="topbar-social-item" style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; transition: color 0.3s;">
+                        <i class="fas fa-map-marker-alt m-r-5"></i> Store Locator
+                    </a>
 				</div>
 
 				<span class="topbar-child1">
 					{% if '/about/' not in request.path %}
-					Free shipping for standard order over ₹100
+					✨ Special Offer: Get 20% OFF on your first order! Use Code: NEW20 ✨
 					{% endif %}
 				</span>
 
@@ -83,18 +304,18 @@
 				</div>
 			</div>
 
-			<div class="wrap_header">
+			<div class="wrap_header" style="height: 100px;">
 				<!-- Logo -->
-				<a href="/" class="logo">
-					<p style="color: black; "><b style="font-size: 22px;">T</b>rendyCart</p>
+				<a href="/" class="logo-container">
+					<span class="logo-text">Trendy<span class="logo-accent">Cart</span><span class="logo-dot"></span></span>
 				</a>
 
 				<!-- Search bar -->
-				<div class="wrap_search m-l-30">
-					<form action="{% url 'core:search' %}" method="GET" style="display: flex; border: 1px solid #e6e6e6; border-radius: 20px; overflow: hidden; width: 300px;">
-						<input type="text" name="q" placeholder="Search products..." style="padding: 8px 15px; border: none; outline: none; flex-grow: 1; font-size: 13px;">
-						<button type="submit" style="padding: 0 15px; background: #f5f5f5; border: none; border-left: 1px solid #e6e6e6; cursor: pointer;">
-							<i class="fa fa-search" aria-hidden="true" style="color: #666;"></i>
+				<div class="m-l-30">
+					<form action="{% url 'core:search' %}" method="GET" class="premium-search">
+						<input type="text" name="q" placeholder="Search for fashion..." style="background: transparent; border: none; outline: none; flex-grow: 1; font-size: 14px; color: #1e293b;">
+						<button type="submit" style="width: 40px; height: 40px; background: #2874f0; border-radius: 50%; border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+							<i class="fa fa-search" aria-hidden="true"></i>
 						</button>
 					</form>
 				</div>
@@ -111,49 +332,36 @@
 								<a href="/shop/">Shop</a>
 							</li>
 
-							<li class="sale-noti {% if '/sale/' in request.path %}active-menu{% endif %}">
-								<a href="{% url 'core:sale' %}">Sale</a>
+							<li class="sale-noti {% if '/sale/' in request.path %}active-menu{% endif %}" style="position: relative;">
+								<a href="{% url 'core:sale' %}">Sale <span class="sale-badge">Hot</span></a>
 							</li>
 
 							<li class="{% if '/mens-wear/' in request.path %}active-menu{% endif %}">
-								<a href="/category/mens-wear">Mens Wear</a>
+								<a href="/category/mens-wear">Men</a>
 							</li>
 
 							<li class="{% if '/womens-wear/' in request.path %}active-menu{% endif %}">
-								<a href="/category/womens-wear">Womens Wear</a>
-							</li>
-
-							<li class="{% if '/about/' in request.path %}active-menu{% endif %}">
-								<a href="{% url 'core:about' %}">About</a>
+								<a href="/category/womens-wear">Women</a>
 							</li>
 
 							{% if request.user.is_authenticated %}
-							<li>
-								<div class="header-wrapicon2">
-								<a href="{% url 'core:order-summary' %}">
-									
-									<img src="{% static 'images/icons/icon-header-02.png' %}" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti">{{ request.user|cart_item_count }}</span>
-									</a>
-								</div>
+							<li style="margin-left: 20px;">
+								<a href="{% url 'core:order-summary' %}" class="header-wrapicon2">
+									<img src="{% static 'images/icons/icon-header-02.png' %}" class="header-icon1" alt="ICON">
+									<span class="header-icons-noti">{{ request.user|cart_item_count }}</span>
+								</a>
 							</li>
 							<li>
-								<a href="{% url 'account_logout' %}">Logout</a>
+								<a href="{% url 'account_logout' %}" style="color: #ef4444 !important;">Logout</a>
 							</li>
 							{% else %}
-							<li>
-								<a href="#">Login</a>
-								<ul class="sub_menu">
-									<li><a href="{% url 'account_login' %}">Login</a></li>
-									<li><a href="{% url 'account_signup' %}">SignUp</a></li>
-								</ul>
+							<li style="margin-left: 20px;">
+								<a href="{% url 'account_login' %}" style="background: #2874f0; color: white !important; padding: 8px 20px; border-radius: 20px; font-size: 14px;">Login</a>
 							</li>
 							{% endif %}
 						</ul>
 					</nav>
 				</div>
-
-				
 			</div>
 		</div>
 
@@ -177,79 +385,6 @@
 					<div class="header-wrapicon2">
 						<img src="{% static 'images/icons/icon-header-02.png' %}" class="header-icon1 js-show-header-dropdown" alt="ICON">
 						<span class="header-icons-noti">0</span>
-
-						<!-- Header cart noti -->
-						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="{% static 'images/item-cart-01.jpg' %}" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											White Shirt With Pleat Detail Back
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $19.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="{% static 'images/item-cart-02.jpg' %}" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="{% static 'images/item-cart-03.jpg' %}" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $17.00
-										</span>
-									</div>
-								</li>
-							</ul>
-
-							<div class="header-cart-total">
-								Total: $75.00
-							</div>
-
-							<div class="header-cart-buttons">
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										View Cart
-									</a>
-								</div>
-
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Check Out
-									</a>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 
@@ -278,23 +413,6 @@
 							<span class="topbar-email">
 								fashe@example.com
 							</span>
-
-							<div class="topbar-language rs1-select2">
-								<select class="selection-1" name="time">
-									<option>USD</option>
-									<option>EUR</option>
-								</select>
-							</div>
-						</div>
-					</li>
-
-					<li class="item-topbar-mobile p-l-10">
-						<div class="topbar-social-mobile">
-							<a href="#" class="topbar-social-item fa fa-facebook"></a>
-							<a href="#" class="topbar-social-item fa fa-instagram"></a>
-							<a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
-							<a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
-							<a href="#" class="topbar-social-item fa fa-youtube-play"></a>
 						</div>
 					</li>
 
@@ -318,12 +436,6 @@
 						<a href="/category/womens-wear">Womens Wear</a>
 					</li>
 
-					<li class="item-menu-mobile {% if '/about/' in request.path %}active-menu{% endif %}">
-						<a href="{% url 'core:about' %}">About</a>
-					</li>
-
-					{% categories_mobile %}
-
 					{% if request.user.is_authenticated %}
 					<li class="item-menu-mobile">
 						<a href="{% url 'core:order-summary' %}">Cart<span class="badge badge-dark">{{ request.user|cart_item_count }}</span></a>
@@ -333,12 +445,7 @@
 					</li>
 					{% else %}
 					<li class="item-menu-mobile">
-						<a href="#">Login</a>
-						<ul class="sub-menu">
-							<li><a href="{% url 'account_login' %}">Login</a></li>
-							<li><a href="{% url 'account_signup' %}">SignUp</a></li>
-						</ul>
-						<i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
+						<a href="{% url 'account_login' %}">Login</a>
 					</li>
 					{% endif %}
 
@@ -346,3 +453,44 @@
 			</nav>
 		</div>
 	</header>
+
+    <!-- Track Order Modal HTML -->
+    <div id="trackModalOverlay" class="track-modal-overlay" onclick="closeTrackModal(event)">
+        <div class="track-modal" onclick="event.stopPropagation()">
+            <div class="modal-close" onclick="closeTrackModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="track-modal-header">
+                <i class="fas fa-box-open"></i>
+                <h3>Track Your Order</h3>
+                <p style="color: #94a3b8; font-size: 14px;">Enter details to see status</p>
+            </div>
+            <form>
+                <div class="track-input-group">
+                    <label>Order ID</label>
+                    <input type="text" class="track-input" placeholder="e.g. TC-12345">
+                </div>
+                <div class="track-input-group">
+                    <label>Registered Mobile Number</label>
+                    <input type="tel" class="track-input" placeholder="+91 95084 452453">
+                </div>
+                <button type="button" class="btn-track-submit" onclick="alert('Tracking status will be shown here!')">
+                    Track Now
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openTrackModal() {
+            const overlay = document.getElementById('trackModalOverlay');
+            overlay.classList.add('show');
+        }
+
+        function closeTrackModal(event) {
+            if (!event || event.target.id === 'trackModalOverlay' || event.currentTarget.classList.contains('modal-close') || event.target.closest('.modal-close')) {
+                const overlay = document.getElementById('trackModalOverlay');
+                overlay.classList.remove('show');
+            }
+        }
+    </script>

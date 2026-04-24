@@ -30,15 +30,15 @@
 
     .sale-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
     }
 
     .sale-card {
         position: relative;
-        height: 180px;
-        border-radius: 12px;
-        padding: 25px;
+        height: 220px;
+        border-radius: 16px;
+        padding: 35px;
         color: #fff;
         overflow: hidden;
         display: flex;
@@ -49,32 +49,36 @@
     }
     .sale-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.2);
     }
 
     .sale-card h3 {
-        font-size: 22px;
+        font-size: 32px;
         font-weight: 900;
         text-transform: uppercase;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
         line-height: 1.1;
     }
     .sale-card p {
-        font-size: 13px;
+        font-size: 16px;
         font-weight: 600;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         opacity: 0.9;
     }
     .sale-btn {
         width: fit-content;
-        padding: 8px 18px;
+        padding: 10px 24px;
         background: #fff;
         color: #333;
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 800;
         text-transform: uppercase;
-        border-radius: 4px;
+        border-radius: 6px;
         border: none;
+        transition: background 0.3s;
+    }
+    .sale-btn:hover {
+        background: #f0f0f0;
     }
 
     /* Card Themes */
@@ -86,11 +90,13 @@
         color: #333;
     }
     .card-flash .sale-btn { background: #333; color: #fff; }
+    .card-flash .sale-btn:hover { background: #222; }
 
     .card-clearance {
         background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
     }
     .card-clearance .sale-btn { background: #e60000; color: #fff; }
+    .card-clearance .sale-btn:hover { background: #cc0000; }
 
     .card-bogo {
         background: linear-gradient(135deg, #4b0082 0%, #6a5acd 100%);
@@ -99,18 +105,22 @@
     /* Icons and Patterns */
     .sale-icon {
         position: absolute;
-        right: 15px;
-        bottom: 15px;
-        font-size: 80px;
-        opacity: 0.2;
+        right: 25px;
+        bottom: -15px;
+        font-size: 110px;
+        opacity: 0.15;
         transform: rotate(-15deg);
+        transition: transform 0.5s;
+    }
+    .sale-card:hover .sale-icon {
+        transform: rotate(0deg) scale(1.1);
     }
 
-    @media (max-width: 1199px) {
-        .sale-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 576px) {
+    @media (max-width: 991px) {
         .sale-grid { grid-template-columns: 1fr; }
+        .sale-card { height: 180px; padding: 25px; }
+        .sale-card h3 { font-size: 24px; }
+        .sale-icon { font-size: 80px; }
     }
 </style>
 
@@ -125,8 +135,8 @@
             <!-- Mega Discount -->
             <div class="sale-card card-mega">
                 <h3>Mega<br>Discount</h3>
-                <p>UPTO <span style="font-size: 18px; color: #ffeb3b;">70%</span> OFF</p>
-                <button class="sale-btn">Shop Now</button>
+                <p>UPTO <span style="font-size: 18px; color: #ffeb3b;">45%</span> OFF</p>
+                <a href="/category/mega-discount" class="sale-btn">Shop Now</a>
                 <i class="fa fa-shopping-bag sale-icon"></i>
             </div>
 
@@ -134,7 +144,7 @@
             <div class="sale-card card-flash">
                 <h3>Flash Sale <i class="fa fa-bolt" style="font-size: 18px;"></i></h3>
                 <p>LIMITED TIME OFFERS</p>
-                <button class="sale-btn">Shop Now</button>
+                <a href="/category/flash-sale" class="sale-btn">Shop Now</a>
                 <i class="fa fa-clock sale-icon"></i>
             </div>
 
@@ -142,7 +152,7 @@
             <div class="sale-card card-clearance">
                 <h3>Clearance<br>Sale</h3>
                 <p>LAST CHANCE TO BUY!</p>
-                <button class="sale-btn">Shop Now</button>
+                <a href="/category/clearance-sale" class="sale-btn">Shop Now</a>
                 <i class="fa fa-shopping-cart sale-icon"></i>
             </div>
 
@@ -150,16 +160,16 @@
             <div class="sale-card card-bogo">
                 <h3>Buy 1<br>Get 1 Free</h3>
                 <p>ON SELECTED ITEMS</p>
-                <button class="sale-btn">Shop Now</button>
+                <a href="/category/bogo" class="sale-btn">Shop Now</a>
                 <i class="fa fa-box-open sale-icon"></i>
             </div>
         </div>
 
         <!-- Shop by Category Section -->
-        <div class="m-b-50">
-            <div class="flex-sb-m p-b-20">
-                <h4 class="m-text14">Shop by Category</h4>
-                <a href="#" class="s-text13 hov6">VIEW ALL</a>
+        <div class="m-b-60 p-t-20">
+            <div class="flex-sb-m p-b-25">
+                <h4 class="m-text14" style="font-size: 22px; font-weight: 700; color: #333;">Shop by Category</h4>
+                <a href="#" class="s-text13 hov6" style="font-weight: 600; text-decoration: underline;">VIEW ALL</a>
             </div>
 
             <div class="sale-category-container">
@@ -168,34 +178,34 @@
                 <a href="/category/{{ cat.slug }}" class="sale-category-item">
                     <div class="cat-icon-circle">
                         {% if 'deals' in cat.slug %}
-                            <span style="font-size: 35px; color: #d0011b; font-weight: 900;">%</span>
+                            <span style="font-size: 45px; color: #d0011b; font-weight: 900;">%</span>
                         {% elif 'mens' in cat.slug %}
-                            <span style="font-size: 35px;">👕</span>
+                            <span style="font-size: 45px;">👕</span>
                         {% elif 'womens' in cat.slug %}
-                            <span style="font-size: 35px;">👗</span>
+                            <span style="font-size: 45px;">👗</span>
                         {% elif 'kids' in cat.slug %}
-                            <span style="font-size: 35px;">🧸</span>
+                            <span style="font-size: 45px;">🧸</span>
                         {% elif 'footwear' in cat.slug %}
-                            <span style="font-size: 35px;">👟</span>
+                            <span style="font-size: 45px;">👟</span>
                         {% elif 'accesories' in cat.slug %}
-                            <span style="font-size: 35px;">👜</span>
+                            <span style="font-size: 45px;">👜</span>
                         {% elif 'winter' in cat.slug %}
-                            <span style="font-size: 35px;">❄️</span>
+                            <span style="font-size: 45px;">❄️</span>
                         {% elif 'summer' in cat.slug %}
-                            <span style="font-size: 35px;">☀️</span>
+                            <span style="font-size: 45px;">☀️</span>
                         {% elif 'combo' in cat.slug %}
-                            <span style="font-size: 35px;">🎁</span>
+                            <span style="font-size: 45px;">🎁</span>
                         {% elif 'best' in cat.slug %}
-                            <span style="font-size: 35px; color: #333;">⭐</span>
+                            <span style="font-size: 45px; color: #333;">⭐</span>
                         {% elif 'under' in cat.slug %}
-                            <span style="font-size: 35px;">🏷️</span>
+                            <span style="font-size: 45px;">🏷️</span>
                         {% else %}
-                            <span style="font-size: 35px;">🛍️</span>
+                            <span style="font-size: 45px;">🛍️</span>
                         {% endif %}
                     </div>
                     <span class="cat-name">{{ cat.title }}</span>
                     <span class="cat-offer">
-                        {% if 'deals' in cat.slug %}Up to 70% Off
+                        {% if 'deals' in cat.slug %}Best Offers
                         {% elif 'sale' in cat.slug %}Min. 40% Off
                         {% elif 'combo' in cat.slug %}Best Combos
                         {% elif 'best' in cat.slug %}On Discount
@@ -211,54 +221,55 @@
             .sale-category-container {
                 display: flex;
                 overflow-x: auto;
-                gap: 20px;
-                padding-bottom: 15px;
+                gap: 35px;
+                padding-bottom: 25px;
                 scrollbar-width: thin;
             }
-            .sale-category-container::-webkit-scrollbar { height: 6px; }
-            .sale-category-container::-webkit-scrollbar-thumb { background: #eee; border-radius: 10px; }
+            .sale-category-container::-webkit-scrollbar { height: 8px; }
+            .sale-category-container::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
 
             .sale-category-item {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                min-width: 100px;
+                min-width: 120px;
                 text-align: center;
+                text-decoration: none !important;
             }
             .cat-icon-circle {
-                width: 70px;
-                height: 70px;
+                width: 100px;
+                height: 100px;
                 background: #fdf2f2;
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-bottom: 10px;
+                margin-bottom: 15px;
                 color: #d0011b;
-                font-size: 24px;
-                transition: all 0.3s;
-                overflow: hidden; /* Ensure image doesn't break circle */
-            }
-            .cat-icon-circle img {
-                width: 40px;
-                height: 40px;
-                object-fit: contain;
-                transition: all 0.3s;
+                font-size: 45px;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.04);
             }
             .sale-category-item:hover .cat-icon-circle {
-                transform: scale(1.1);
+                transform: translateY(-8px);
                 background: #d0011b;
                 color: #fff;
+                box-shadow: 0 10px 20px rgba(208, 1, 27, 0.2);
             }
             .cat-name {
-                font-size: 13px;
+                font-size: 15px;
                 font-weight: 700;
                 color: #333;
-                margin-bottom: 2px;
+                margin-bottom: 5px;
                 white-space: nowrap;
+                transition: color 0.3s;
+            }
+            .sale-category-item:hover .cat-name {
+                color: #d0011b;
             }
             .cat-offer {
-                font-size: 10px;
+                font-size: 12px;
+                font-weight: 500;
                 color: #888;
                 white-space: nowrap;
             }
