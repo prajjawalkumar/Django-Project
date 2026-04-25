@@ -42,7 +42,7 @@ It also includes an admin panel for managing products and orders.`
 ![Product Category Page](images/Product-Category-page.png)
 
 📌 Figure 6: Filtered Product Display
-![Filtered Product Display](images/Filtered-Product-Display.png)
+![Filtered Product Display](images/Filtered-Products-Display.png)
 
 📌 Figure 7: Products With discount
 ![Products With discount](images/Products-With-Discounts.png)
