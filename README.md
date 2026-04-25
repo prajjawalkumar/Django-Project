@@ -28,34 +28,68 @@ It also includes an admin panel for managing products and orders.`
 
 📌 Figure 1: Home Page
 ![Home Page](Home-page.png)
+
 📌 Figure 2: Shop Page
-![Shop Page](Shop Page.png)
+![Shop Page](Shop-Page.png)
+
 📌 Figure 3: About Page
+![About Page](About-Page.png)
+
 📌 Figure 4: Products Detail Page
+![Products Detail Page](Product-detail.png)
+
 📌 Figure 5: Product Category Page
+![Product Category Page](Product-Category-page.png)
+
 📌 Figure 6: Filtered Product Display
+![Filtered Product Display](FilteredProduct-Display.png)
+
 📌 Figure 7: Products With discount
+![Products With discount](Products-With-discount.png)
+
 📌 Figure 8: Product Search Result
+![Product Search Result](Product-Search-Result.png)
 
 🔷 🔹 SECTION 2: Shopping Flow
+
 📌 Figure 9: Shopping Cart Page
+![Shopping Cart Page](Shopping-Cart-Page.png)
+
 📌 Figure 10: Checkout & Billing Address Page
+![Checkout & Billing Address Page](Checkout-&-Billing-Address-Page.png)
 
 🔷 🔹 SECTION 3: User Authentication
+
 📌 Figure 11: User Login Page
+![User Login Page](User-Login-Page.png)
+
 📌 Figure 12: User Registration Page
+![User Registration Page]( User-Registration-Page.png)
 
 🔷 🔹 SECTION 4: Admin & Backend
+
 📌 Figure 13: Django Admin Panel
+![Django Admin Panel](Django-Admin-Panel.png)
+
 📌 Figure 14: Product Management {Admin Panel}
+![Product Management {Admin Panel}](Product-Management-(Admin-Panel).png)
+
 📌 Figure 15: Databse Data View
+![Databse Data View](Databse-Data-View.png)
 
 🔷 🔹 SECTION 5: Extra UI Feature
-📌 Figure 16: Website Rating
-📌 Figure 17: Product Rating
-📌 Figure 18: Website Footer
-📌 Figure 19: Navigation Bar
 
+📌 Figure 16: Website Rating
+![Website Rating](Website-Rating.png)
+
+📌 Figure 17: Product Rating
+![Product Rating](Product-Rating.png)
+
+📌 Figure 18: Website Footer
+![Website Footer](Website-Footer.png)
+
+📌 Figure 19: Navigation Bar
+![Navigation Bar](Navigation-Bar.png)
 
 
 
