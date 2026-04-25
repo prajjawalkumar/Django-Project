@@ -95,8 +95,7 @@ It also includes an admin panel for managing products and orders.`
 
 
 # Installation
-
-`git clone https://github.com/zinmyoswe/Django-Ecommerce.git`
+`https://github.com/prajjawalkumar/Django-Project.git`
 
 `cd Django-Ecommerce`
 
@@ -137,15 +136,9 @@ pip install Pillow
 
 ```python
 python manage.py createsuperuser
-Username : admin
-Password : 12345678
+Username : Prajjawal
+Password : Prajjawal@52453
 ```
-# Demo
 
-http://djangoecommerce.pythonanywhere.com
-
-# HTML Template
-
-https://colorlib.com/etc/fashe/index.html
 
 
