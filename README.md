@@ -36,19 +36,19 @@ It also includes an admin panel for managing products and orders.`
 ![About Page](images/About-Page.png)
 
 📌 Figure 4: Products Detail Page
-![Products Detail Page](images/Product-detail.png)
+![Products Detail Page](images/Product-Detail.png)
 
 📌 Figure 5: Product Category Page
 ![Product Category Page](images/Product-Category-page.png)
 
 📌 Figure 6: Filtered Product Display
-![Filtered Product Display](images/FilteredProduct-Display.png)
+![Filtered Product Display](images/Filtered-Product-Display.png)
 
 📌 Figure 7: Products With discount
-![Products With discount](images/Products-With-discount.png)
+![Products With discount](images/Products-With-Discounts.png)
 
 📌 Figure 8: Product Search Result
-![Product Search Result](images/Product-Search-Result.png)
+![Product Search Result](images/Products-Search-Result.png)
 
 🔷 🔹 SECTION 2: Shopping Flow
 
@@ -75,7 +75,7 @@ It also includes an admin panel for managing products and orders.`
 ![Product Management {Admin Panel}](images/Product-Management-(Admin-Panel).png)
 
 📌 Figure 15: Databse Data View
-![Databse Data View](images/Databse-Data-View.png)
+![Databse Data View](images/Database-Data-View.png)
 
 🔷 🔹 SECTION 5: Extra UI Feature
 
@@ -86,7 +86,7 @@ It also includes an admin panel for managing products and orders.`
 ![Product Rating](images/Product-Rating.png)
 
 📌 Figure 18: Website Footer
-![Website Footer](images/Website-Footer.png)
+![Website Footer](images/Product-Footer.png)
 
 📌 Figure 19: Navigation Bar
 ![Navigation Bar](images/Navigation-Bar.png)
