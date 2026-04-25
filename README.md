@@ -27,69 +27,69 @@ It also includes an admin panel for managing products and orders.`
 🔷 🔹 SECTION 1: User Interface (Frontend)
 
 📌 Figure 1: Home Page
-![Home Page](Home-page.png)
+![Home Page](images/Home-page.png)
 
 📌 Figure 2: Shop Page
-![Shop Page](Shop-Page.png)
+![Shop Page](images/Shop-Page.png)
 
 📌 Figure 3: About Page
-![About Page](About-Page.png)
+![About Page](images/About-Page.png)
 
 📌 Figure 4: Products Detail Page
-![Products Detail Page](Product-detail.png)
+![Products Detail Page](images/Product-detail.png)
 
 📌 Figure 5: Product Category Page
-![Product Category Page](Product-Category-page.png)
+![Product Category Page](images/Product-Category-page.png)
 
 📌 Figure 6: Filtered Product Display
-![Filtered Product Display](FilteredProduct-Display.png)
+![Filtered Product Display](images/FilteredProduct-Display.png)
 
 📌 Figure 7: Products With discount
-![Products With discount](Products-With-discount.png)
+![Products With discount](images/Products-With-discount.png)
 
 📌 Figure 8: Product Search Result
-![Product Search Result](Product-Search-Result.png)
+![Product Search Result](images/Product-Search-Result.png)
 
 🔷 🔹 SECTION 2: Shopping Flow
 
 📌 Figure 9: Shopping Cart Page
-![Shopping Cart Page](Shopping-Cart-Page.png)
+![Shopping Cart Page](images/Shopping-Cart-Page.png)
 
 📌 Figure 10: Checkout & Billing Address Page
-![Checkout & Billing Address Page](Checkout-&-Billing-Address-Page.png)
+![Checkout & Billing Address Page](images/Checkout-&-Billing-Address-Page.png)
 
 🔷 🔹 SECTION 3: User Authentication
 
 📌 Figure 11: User Login Page
-![User Login Page](User-Login-Page.png)
+![User Login Page](images/User-Login-Page.png)
 
 📌 Figure 12: User Registration Page
-![User Registration Page]( User-Registration-Page.png)
+![User Registration Page](images/User-Registration-Page.png)
 
 🔷 🔹 SECTION 4: Admin & Backend
 
 📌 Figure 13: Django Admin Panel
-![Django Admin Panel](Django-Admin-Panel.png)
+![Django Admin Panel](images/Django-Admin-Panel.png)
 
 📌 Figure 14: Product Management {Admin Panel}
-![Product Management {Admin Panel}](Product-Management-(Admin-Panel).png)
+![Product Management {Admin Panel}](images/Product-Management-(Admin-Panel).png)
 
 📌 Figure 15: Databse Data View
-![Databse Data View](Databse-Data-View.png)
+![Databse Data View](images/Databse-Data-View.png)
 
 🔷 🔹 SECTION 5: Extra UI Feature
 
 📌 Figure 16: Website Rating
-![Website Rating](Website-Rating.png)
+![Website Rating](images/Website-Rating.png)
 
 📌 Figure 17: Product Rating
-![Product Rating](Product-Rating.png)
+![Product Rating](images/Product-Rating.png)
 
 📌 Figure 18: Website Footer
-![Website Footer](Website-Footer.png)
+![Website Footer](images/Website-Footer.png)
 
 📌 Figure 19: Navigation Bar
-![Navigation Bar](Navigation-Bar.png)
+![Navigation Bar](images/Navigation-Bar.png)
 
 
 
