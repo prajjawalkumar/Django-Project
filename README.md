@@ -36,7 +36,7 @@ It also includes an admin panel for managing products and orders.`
 ![About Page](images/About-Page.png)
 
 📌 Figure 4: Products Detail Page
-![Products Detail Page](images/Product-Detail.png)
+![Products Detail Page](images/Product-Details.png)
 
 📌 Figure 5: Product Category Page
 ![Product Category Page](images/Product-Category-page.png)
