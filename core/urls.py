@@ -14,12 +14,18 @@ from .views import (
     CategoryView,
     SearchView,
     AboutView,
-    SaleView
+    SaleView,
+    chatbot_api,
+    api_get_recommendations,
+    api_get_review_summary
 )
 
 app_name = 'core'
 
 urlpatterns = [
+    path('api/chatbot/', chatbot_api, name='chatbot-api'),
+    path('api/recommendations/<slug>/', api_get_recommendations, name='api-recommendations'),
+    path('api/review-summary/<slug>/', api_get_review_summary, name='api-review-summary'),
     path('', HomeView.as_view(), name='home'),
     path('about/', AboutView.as_view(), name='about'),
     path('sale/', SaleView.as_view(), name='sale'),

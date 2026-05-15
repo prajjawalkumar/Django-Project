@@ -8,9 +8,12 @@ from django.views.generic import ListView, DetailView, View
 from django.shortcuts import redirect
 from django.utils import timezone
 from .forms import CheckoutForm, CouponForm, RefundForm
-from .models import Item, OrderItem, Order, BillingAddress, Payment, Coupon, Refund, Category
+from .models import Item, OrderItem, Order, BillingAddress, Payment, Coupon, Refund, Category, Review
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.http import JsonResponse
+import json
+from .ai_utils import chatbot_response, parse_search_query, get_ai_recommendations, summarize_reviews
 
 from django.db.models import Q
 
@@ -25,13 +28,21 @@ class SearchView(ListView):
         item_list = Item.objects.filter(is_active=True)
         
         if query:
-            item_list = item_list.filter(
-                Q(title__icontains=query) |
-                Q(description_long__icontains=query) |
-                Q(description_short__icontains=query) |
-                Q(category__title__icontains=query) |
-                Q(category__parent__title__icontains=query)
-            ).distinct()
+            categories = list(Category.objects.values_list('title', flat=True))
+            ai_data = parse_search_query(query, categories)
+            keywords = ai_data.get('keywords', query)
+            ai_category = ai_data.get('category')
+            
+            q_objects = Q(title__icontains=keywords) | \
+                        Q(description_long__icontains=keywords) | \
+                        Q(description_short__icontains=keywords) | \
+                        Q(category__title__icontains=keywords) | \
+                        Q(category__parent__title__icontains=keywords)
+            
+            if ai_category and ai_category != "None":
+                q_objects |= Q(category__title__icontains=ai_category)
+                
+            item_list = item_list.filter(q_objects).distinct()
         
         # Filtering by price
         min_price = self.request.GET.get('min_price')
@@ -203,6 +214,30 @@ class ShopView(ListView):
 class ItemDetailView(DetailView):
     model = Item
     template_name = "product-detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reviews'] = self.object.reviews.all().order_by('-created_at')
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "You must be logged in to leave a review.")
+            return redirect(self.get_object().get_absolute_url())
+            
+        rating = request.POST.get('rating', 5)
+        content = request.POST.get('content', '')
+        
+        if content:
+            Review.objects.create(
+                item=self.get_object(),
+                user=request.user,
+                rating=int(rating),
+                content=content
+            )
+            messages.success(request, "Review added successfully!")
+            
+        return redirect(self.get_object().get_absolute_url())
 
 
 # class CategoryView(DetailView):
@@ -630,3 +665,52 @@ class RequestRefundView(View):
             except ObjectDoesNotExist:
                 messages.info(self.request, "This order does not exist")
                 return redirect("core:request-refund")
+
+def chatbot_api(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            message = data.get("message", "")
+            
+            # Simple context
+            context = "We sell Men's, Women's clothing, footwear, and accessories. We offer 10-day returns, Cash on Delivery (COD), and fast shipping."
+            reply = chatbot_response(message, store_context=context)
+            
+            return JsonResponse({"reply": reply})
+        except Exception as e:
+            return JsonResponse({"reply": "Error processing request"}, status=400)
+    return JsonResponse({"reply": "Invalid request"}, status=400)
+
+def api_get_recommendations(request, slug):
+    try:
+        item = Item.objects.get(slug=slug)
+        candidates = list(Item.objects.filter(is_active=True).exclude(id=item.id).values('id', 'title', 'category__title')[:50])
+        category_title = item.category.title if item.category else 'General'
+        recommended_ids = get_ai_recommendations(item.title, category_title, candidates)
+        
+        if recommended_ids:
+            recommended_items = Item.objects.filter(id__in=recommended_ids)
+            data = [{
+                'id': i.id,
+                'title': i.title,
+                'price': i.price,
+                'discount_price': i.discount_price,
+                'image_url': i.image.url if i.image else '',
+                'url': i.get_absolute_url()
+            } for i in recommended_items]
+            return JsonResponse({'status': 'success', 'recommendations': data})
+        return JsonResponse({'status': 'error', 'message': 'No recommendations found'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})
+
+def api_get_review_summary(request, slug):
+    try:
+        item = Item.objects.get(slug=slug)
+        reviews = list(item.reviews.all().values_list('content', flat=True))
+        if not reviews:
+            return JsonResponse({'status': 'success', 'summary': 'No reviews yet to summarize.'})
+            
+        summary = summarize_reviews(reviews)
+        return JsonResponse({'status': 'success', 'summary': summary})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})

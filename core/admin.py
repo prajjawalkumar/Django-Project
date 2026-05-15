@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import Item, OrderItem, Order, Payment, Coupon, Refund, BillingAddress, Category, Slide
+from .ai_utils import generate_product_description
 
 
 # Register your models here.
@@ -68,6 +69,18 @@ def copy_items(modeladmin, request, queryset):
 copy_items.short_description = 'Copy Items'
 
 
+def generate_ai_descriptions(modeladmin, request, queryset):
+    for item in queryset:
+        if not item.description_long or len(item.description_long) < 10:
+            category_title = item.category.title if item.category else "General"
+            desc = generate_product_description(item.title, category_title, item.price)
+            if not desc.startswith("Error") and not desc.startswith("AI model"):
+                item.description_long = desc
+                item.save()
+
+generate_ai_descriptions.short_description = 'Generate AI Descriptions'
+
+
 class ItemAdmin(admin.ModelAdmin):
     list_display = [
         'title',
@@ -76,7 +89,7 @@ class ItemAdmin(admin.ModelAdmin):
     list_filter = ['title', 'category']
     search_fields = ['title', 'category']
     prepopulated_fields = {"slug": ("title",)}
-    actions = [copy_items]
+    actions = [copy_items, generate_ai_descriptions]
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = [
